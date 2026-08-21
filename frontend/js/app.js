@@ -114,10 +114,6 @@ export async function initApp() {
   setupNavigation();
   setupQuickSamples();
   setupEventListeners();
-  
-  // Load default sample into enricher
-  loadSampleIntoForm(SAMPLE_PRESETS[0].data);
-  await handleSingleEnrich();
 }
 
 // Navigation Tabs
