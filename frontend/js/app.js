@@ -1,80 +1,95 @@
 /**
- * UniCat 2.0 - Premium Minimal AI SaaS
+ * AI Command Center Logic
  */
 import { ApiService } from './api.js';
 
-const SAMPLE_DATA = [
+// Application State
+const state = {
+  currentTab: 'studio',
+  batchResults: [],
+};
+
+// Preset Quick Samples
+const SAMPLE_PRESETS = [
   { name: "Frigidaire Dishwasher", cat: "Home Appliances", data: { Mfg_Part_Num: "PDSH4816AF", Part_Desc: "PDSH4816AF Dishwasher SS", Part_Manuf: "Appliance Dealers Coop", E1_Brand: "-- Unbranded --" } },
-  { name: "Whirlpool Eco Dishwasher", cat: "Home Appliances", data: { Mfg_Part_Num: "WDTS7024RZ", Part_Desc: "WDTS7024RZ Dishwasher SS", Part_Manuf: "Appliance Dealers Coop", E1_Brand: "-- Unbranded --" } },
-  { name: "Diablo Sanding Belt", cat: "Power Tools", data: { Mfg_Part_Num: "DCB518ASTS06G", Part_Desc: "Diablo 1/2x18 Sanding Belt", Part_Manuf: "Freud Inc", E1_Brand: "-- Unbranded --" } },
-  { name: "Milwaukee Cut-Off Disc", cat: "Power Tools", data: { Mfg_Part_Num: "49-94-0013", Part_Desc: "Milw 5x.045 Metal Disc", Part_Manuf: "Milwaukee", E1_Brand: "-- Unbranded --" } },
-  { name: "TimberTech Azek PVC Decking", cat: "Building Materials", data: { Mfg_Part_Num: "ADB15516CS", Part_Desc: "Coastline Sq Edge PVC", Part_Manuf: "Parksite", E1_Brand: "TIMBERTECH" } },
+  { name: "Whirlpool Eco", cat: "Home Appliances", data: { Mfg_Part_Num: "WDTS7024RZ", Part_Desc: "WDTS7024RZ Dishwasher SS", Part_Manuf: "Appliance Dealers Coop", E1_Brand: "-- Unbranded --" } },
+  { name: "Diablo Sanding Belt", cat: "Tools", data: { Mfg_Part_Num: "DCB518ASTS06G", Part_Desc: "Diablo 1/2x18 Sanding Belt", Part_Manuf: "Freud Inc", E1_Brand: "-- Unbranded --" } },
+  { name: "Milwaukee Cut Off Disc", cat: "Tools", data: { Mfg_Part_Num: "49-94-0013", Part_Desc: "Milw 5x.045 Metal Disc", Part_Manuf: "Milwaukee", E1_Brand: "-- Unbranded --" } },
+  { name: "TimberTech Decking", cat: "Building Materials", data: { Mfg_Part_Num: "ADB15516CS", Part_Desc: "Coastline Sq Edge PVC", Part_Manuf: "Parksite", E1_Brand: "TIMBERTECH" } },
   { name: "Philips LED Bulb", cat: "Lighting", data: { Mfg_Part_Num: "565374", Part_Desc: "75W Led A19 Med 27k", Part_Manuf: "Phillips", E1_Brand: "-- Unbranded --" } }
 ];
 
+// DOM Elements Cache
 const el = {
   startupOverlay: document.getElementById('startup-overlay'),
-  navTabs: document.querySelectorAll('.nav-tab'),
+  navLinks: document.querySelectorAll('.nav-link'),
   tabPanels: document.querySelectorAll('.tab-panel'),
+  cmdPalette: document.getElementById('cmd-palette'),
+  btnCmdK: document.getElementById('btn-cmd-k'),
+  cmdInput: document.querySelector('.cmd-input'),
+  cmdItems: document.querySelectorAll('.cmd-item'),
   
-  // Single Input
+  // Single
   quickSamples: document.getElementById('quick-samples-container'),
   inputMpn: document.getElementById('input-mpn'),
   inputDesc: document.getElementById('input-desc'),
   inputManuf: document.getElementById('input-manuf'),
-  inputBrand: document.getElementById('input-e1-brand'),
+  inputE1Brand: document.getElementById('input-e1-brand'),
   btnEnrich: document.getElementById('btn-enrich-single'),
   
-  // Single Results
+  pipeline: document.getElementById('ai-pipeline'),
+  pipelineFill: document.getElementById('pipeline-fill'),
+  pipeSteps: [
+    document.getElementById('step-raw'),
+    document.getElementById('step-ai'),
+    document.getElementById('step-class'),
+    document.getElementById('step-std'),
+    document.getElementById('step-val')
+  ],
+  
   studioEmpty: document.getElementById('studio-empty-state'),
   resultsPayload: document.getElementById('results-payload'),
-  resStatus: document.getElementById('res-status'),
-  studioPipeline: document.getElementById('studio-pipeline'),
-  pipeSteps: document.querySelectorAll('#studio-pipeline .pipeline-step'),
   
+  // Results
+  confValTxt: document.getElementById('conf-val-txt'),
+  confSvgRing: document.getElementById('conf-svg-ring'),
   idTitle: document.getElementById('id-title'),
-  idMeta: document.getElementById('id-meta'),
-  confTxt: document.getElementById('conf-txt'),
-  
-  outInvoiceDesc: document.getElementById('out-invoice-desc'),
-  outMobileDesc: document.getElementById('out-mobile-desc'),
+  idMpn: document.getElementById('id-mpn'),
+  idMetaTags: document.getElementById('id-meta-tags'),
   outShortDesc: document.getElementById('out-short-desc'),
-  
+  outInvoiceDesc: document.getElementById('out-invoice-desc'),
+  outInvoiceMeter: document.getElementById('out-invoice-meter'),
+  outMobileDesc: document.getElementById('out-mobile-desc'),
+  outMobileMeter: document.getElementById('out-mobile-meter'),
   outFeatures: document.getElementById('out-features'),
   outAttributes: document.getElementById('out-attributes'),
-  notesTxt: document.getElementById('notes-txt'),
   
   // Batch
+  vizProd: document.getElementById('viz-prod'),
+  vizAttr: document.getElementById('viz-attr'),
+  vizConf: document.getElementById('viz-conf'),
   btnRunBatch: document.getElementById('btn-run-batch'),
+  batchTbody: document.getElementById('batch-tbody'),
   csvUpload: document.getElementById('csv-upload'),
   btnExpCsv: document.getElementById('btn-exp-csv'),
   btnExpXls: document.getElementById('btn-exp-xls'),
   
-  statProd: document.getElementById('stat-prod'),
-  statConf: document.getElementById('stat-conf'),
-  statRev: document.getElementById('stat-rev'),
-  
-  batchProgress: document.getElementById('batch-progress'),
-  progStatusTxt: document.getElementById('prog-status-txt'),
-  progPctTxt: document.getElementById('prog-pct-txt'),
-  progFill: document.getElementById('prog-fill'),
-  batchPipeSteps: document.querySelectorAll('#batch-pipeline .pipeline-step'),
-  liveFeed: document.getElementById('live-feed'),
-  
-  batchTbody: document.getElementById('batch-tbody')
+  liveStreamPanel: document.getElementById('live-stream-panel'),
+  streamFeed: document.getElementById('stream-feed'),
+  streamProgressTxt: document.getElementById('stream-progress-txt')
 };
 
-document.addEventListener('DOMContentLoaded', initApp);
-
-function initApp() {
+// Initialize App
+document.addEventListener('DOMContentLoaded', () => {
   handleStartup();
   setupNavigation();
+  setupCommandPalette();
   setupSamples();
-  setupEvents();
-}
+  setupEventListeners();
+});
 
 function handleStartup() {
-  const hasSeen = sessionStorage.getItem('unicat_prem_intro');
+  const hasSeen = sessionStorage.getItem('unicat_intro');
   if (hasSeen) {
     el.startupOverlay.classList.add('hidden');
   } else {
@@ -82,45 +97,84 @@ function handleStartup() {
       el.startupOverlay.style.opacity = '0';
       setTimeout(() => {
         el.startupOverlay.classList.add('hidden');
-        sessionStorage.setItem('unicat_prem_intro', '1');
-      }, 400); 
-    }, 1000); 
+        sessionStorage.setItem('unicat_intro', '1');
+      }, 400);
+    }, 2000);
   }
 }
 
 function setupNavigation() {
-  el.navTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.getAttribute('data-tab');
-      el.navTabs.forEach(t => t.classList.remove('active'));
+  el.navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const tab = link.getAttribute('data-tab');
+      el.navLinks.forEach(l => l.classList.remove('active'));
       el.tabPanels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(`tab-${target}`).classList.add('active');
+      link.classList.add('active');
+      document.getElementById(`tab-${tab}`).classList.add('active');
     });
   });
+}
+
+function setupCommandPalette() {
+  const togglePalette = () => {
+    const isHidden = el.cmdPalette.style.display === 'none' || el.cmdPalette.style.display === '';
+    el.cmdPalette.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) el.cmdInput.focus();
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      togglePalette();
+    }
+    if (e.key === 'Escape' && el.cmdPalette.style.display === 'flex') {
+      togglePalette();
+    }
+  });
+
+  el.btnCmdK.addEventListener('click', togglePalette);
+  
+  el.cmdPalette.addEventListener('click', (e) => {
+    if (e.target === el.cmdPalette) togglePalette();
+  });
+  
+  el.cmdItems.forEach(item => {
+    item.addEventListener('click', () => {
+      executeCommand(item.getAttribute('data-action'));
+      togglePalette();
+    });
+  });
+}
+
+function executeCommand(action) {
+  if(action === 'enrich') document.querySelector('.nav-link[data-tab="studio"]').click();
+  if(action === 'batch') {
+    document.querySelector('.nav-link[data-tab="batch"]').click();
+    el.btnRunBatch.click();
+  }
+  if(action === 'upload') el.csvUpload.click();
+  if(action === 'export') window.open(ApiService.getExportCsvUrl(), '_blank');
+  if(action === 'reset') location.reload();
 }
 
 function setupSamples() {
   el.quickSamples.innerHTML = '';
-  SAMPLE_DATA.forEach(s => {
-    const item = document.createElement('div');
-    item.className = 'sample-item';
-    item.innerHTML = `
-      <span style="font-weight:500; color:var(--text-primary);">${s.name}</span>
-      <span class="sample-item-icon">→</span>
-    `;
-    item.addEventListener('click', () => {
+  SAMPLE_PRESETS.forEach(s => {
+    const chip = document.createElement('div');
+    chip.className = 'sample-chip';
+    chip.innerHTML = `<span>${s.name}</span><span>${s.cat}</span>`;
+    chip.addEventListener('click', () => {
       el.inputMpn.value = s.data.Mfg_Part_Num || '';
       el.inputDesc.value = s.data.Part_Desc || '';
       el.inputManuf.value = s.data.Part_Manuf || '';
-      el.inputBrand.value = s.data.E1_Brand || '';
-      runSingleEnrichment();
+      el.inputE1Brand.value = s.data.E1_Brand || '';
+      el.btnEnrich.click();
     });
-    el.quickSamples.appendChild(item);
+    el.quickSamples.appendChild(chip);
   });
 }
 
-function setupEvents() {
+function setupEventListeners() {
   el.btnEnrich.addEventListener('click', runSingleEnrichment);
   el.btnRunBatch.addEventListener('click', runBatchProcessing);
   el.csvUpload.addEventListener('change', (e) => {
@@ -128,241 +182,234 @@ function setupEvents() {
   });
   el.btnExpCsv.addEventListener('click', () => window.open(ApiService.getExportCsvUrl(), '_blank'));
   el.btnExpXls.addEventListener('click', () => window.open(ApiService.getExportExcelUrl(), '_blank'));
-  
-  document.querySelectorAll('.btn-copy').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const val = e.target.nextElementSibling.nextElementSibling.textContent;
-      navigator.clipboard.writeText(val);
-      e.target.textContent = '✓ Copied';
-      setTimeout(() => e.target.textContent = 'Copy', 1500);
-    });
-  });
 }
 
 /* =======================================
-   SINGLE ENRICHMENT
+   SINGLE ENRICHMENT & PIPELINE
    ======================================= */
 async function runSingleEnrichment() {
   const rawInput = {
     Mfg_Part_Num: el.inputMpn.value.trim(),
     Part_Desc: el.inputDesc.value.trim(),
     Part_Manuf: el.inputManuf.value.trim(),
-    E1_Brand: el.inputBrand.value.trim()
+    E1_Brand: el.inputE1Brand.value.trim()
   };
-  if (!rawInput.Mfg_Part_Num && !rawInput.Part_Desc) return;
   
-  // UI State: Processing
-  el.btnEnrich.innerHTML = '<div class="spinner"></div> Enriching product...';
-  el.btnEnrich.disabled = true;
   el.studioEmpty.classList.add('hidden');
   el.resultsPayload.classList.add('hidden');
-  el.studioPipeline.classList.remove('hidden');
+  el.pipeline.classList.remove('hidden');
   
-  el.resStatus.innerHTML = '<div class="status-dot" style="background:var(--accent-blue);"></div> Processing';
+  // Pipeline Animation Setup
+  el.btnEnrich.classList.add('processing');
+  el.btnEnrich.innerHTML = '◌ ANALYZING PRODUCT...';
   
-  // Reset pipeline
+  el.pipelineFill.style.width = '0%';
   el.pipeSteps.forEach(s => s.className = 'pipeline-step');
   
-  // Fake animation timing (Total ~800ms)
-  setTimeout(() => el.pipeSteps[0].classList.add('done'), 100);
-  setTimeout(() => { el.pipeSteps[1].classList.add('active'); }, 200);
-  setTimeout(() => { el.pipeSteps[1].classList.replace('active', 'done'); el.pipeSteps[2].classList.add('active'); }, 500);
+  // Fake the timeline for WOW effect (1.5s total)
+  const timeline = [
+    { time: 0, w: '0%', idx: 0, text: '◌ ANALYZING...' },
+    { time: 300, w: '25%', idx: 1, text: '✦ ENRICHING...' },
+    { time: 600, w: '50%', idx: 2, text: '✦ CLASSIFYING...' },
+    { time: 900, w: '75%', idx: 3, text: '✦ STANDARDIZING...' },
+    { time: 1200, w: '100%', idx: 4, text: '✓ COMPLIANCE CHECK...' }
+  ];
   
+  timeline.forEach(t => {
+    setTimeout(() => {
+      el.pipelineFill.style.width = t.w;
+      el.pipeSteps[t.idx].classList.add('active');
+      if (t.idx > 0) el.pipeSteps[t.idx-1].classList.replace('active', 'done');
+      el.btnEnrich.innerHTML = t.text;
+    }, t.time);
+  });
+  
+  // Real API Call concurrently
   let product = null;
   try {
     product = await ApiService.enrichSingle(rawInput);
   } catch (err) {
     alert("Enrichment failed: " + err.message);
-    el.btnEnrich.innerHTML = '<span>⚡</span> Enrich & Validate';
-    el.btnEnrich.disabled = false;
+    el.btnEnrich.classList.remove('processing');
+    el.btnEnrich.innerHTML = '⚡ Enrich & Validate';
     return;
   }
   
-  setTimeout(() => { 
-    el.pipeSteps[2].classList.replace('active', 'done');
-    el.pipeSteps[3].classList.add('done');
-    el.resStatus.innerHTML = '<div class="status-dot"></div> Complete';
-    el.btnEnrich.innerHTML = '✓ Enrichment complete';
-    
+  // Wait for animation to finish
+  setTimeout(() => {
+    el.pipeSteps[4].classList.replace('active', 'done');
+    el.btnEnrich.innerHTML = '✓ VALIDATED';
     setTimeout(() => {
-      el.btnEnrich.innerHTML = '<span>⚡</span> Enrich & Validate';
-      el.btnEnrich.disabled = false;
+      el.btnEnrich.classList.remove('processing');
+      el.btnEnrich.innerHTML = '⚡ Enrich & Validate';
       renderResults(product);
-    }, 400);
-    
-  }, 800);
+    }, 500);
+  }, 1500);
 }
 
 function renderResults(p) {
-  // Reset staggers
+  el.resultsPayload.classList.remove('hidden');
+  
+  // Remove stagger classes briefly to replay animation
   const staggers = el.resultsPayload.querySelectorAll('.stagger-in');
   staggers.forEach(el => el.classList.remove('visible'));
   
-  el.resultsPayload.classList.remove('hidden');
+  // Update Confidence
+  el.confValTxt.textContent = `${p.confidence_score}%`;
+  // calculate stroke-dashoffset (163 is full circle)
+  const offset = 163 - (163 * p.confidence_score / 100);
+  setTimeout(() => el.confSvgRing.style.strokeDashoffset = offset, 100);
   
-  el.idTitle.textContent = p.short_desc || p.product_name || p.mfg_part_num;
-  el.idMeta.textContent = `${p.brand_name || 'No Brand'} · ${p.classpath ? p.classpath.split('>').pop().trim() : 'Uncategorized'}`;
+  // Identity Card
+  el.idTitle.textContent = p.short_desc || p.product_name;
+  el.idMpn.textContent = p.mfg_part_num;
+  el.idMetaTags.innerHTML = `
+    <span class="id-tag">${p.brand_name || 'No Brand'}</span>
+    <span class="id-tag">${p.classpath || 'Uncategorized'}</span>
+  `;
   
-  el.outInvoiceDesc.textContent = p.invoice_desc;
-  el.outMobileDesc.textContent = p.mobile_desc;
+  // Delivery Content
   el.outShortDesc.textContent = p.short_desc;
+  el.outInvoiceDesc.textContent = p.invoice_desc;
+  el.outInvoiceMeter.textContent = `${(p.invoice_desc||'').length} / 40 chars`;
+  el.outMobileDesc.textContent = p.mobile_desc;
+  el.outMobileMeter.textContent = `${(p.mobile_desc||'').length} / 80 chars`;
   
+  // Intelligence Chips
   el.outFeatures.innerHTML = '';
-  p.item_features.forEach(f => {
-    const li = document.createElement('li');
-    li.textContent = f;
-    li.className = 'stagger-in';
-    el.outFeatures.appendChild(li);
+  p.item_features.forEach((feat) => {
+    const chip = document.createElement('div');
+    chip.className = 'feature-chip';
+    chip.innerHTML = `<span>✓</span> ${feat}`;
+    el.outFeatures.appendChild(chip);
   });
   
+  // Data Explorer Grid
   el.outAttributes.innerHTML = '';
-  const validAttrs = p.attributes.filter(a => a.label && a.value);
-  validAttrs.forEach(attr => {
-    const row = document.createElement('div');
-    row.className = 'attr-row';
-    row.innerHTML = `<div class="attr-key">${attr.label}</div><div class="attr-val">${attr.value} ${attr.uom||''}</div>`;
-    el.outAttributes.appendChild(row);
+  const attrs = p.attributes.filter(a => a.label && a.value);
+  attrs.forEach((attr) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--text-secondary);">${attr.label}</td>
+      <td style="font-weight:500;">${attr.value} ${attr.uom||''}</td>
+      <td><span class="status-badge val">✓ Matched</span></td>
+    `;
+    el.outAttributes.appendChild(tr);
   });
   
-  // Calculate confidence animation
-  el.confTxt.textContent = '0%';
-  animateValue(el.confTxt, 0, p.confidence_score, 800, '%');
-  
-  // Re-fetch staggers (now including dynamic features)
-  const allStaggers = el.resultsPayload.querySelectorAll('.stagger-in');
-  allStaggers.forEach((elem, idx) => {
-    elem.style.animationDelay = `${idx * 40}ms`;
-    requestAnimationFrame(() => elem.classList.add('visible'));
+  // Re-trigger stagger animations
+  staggers.forEach((el, idx) => {
+    el.style.animationDelay = `${idx * 100}ms`;
+    requestAnimationFrame(() => el.classList.add('visible'));
   });
 }
 
 /* =======================================
-   BATCH PROCESSING
+   BATCH PROCESSING ENGINE
    ======================================= */
 async function runBatchProcessing() {
-  startBatchProgress(1000);
+  startBatchVisuals();
+  
   try {
     const sampleData = await ApiService.get1000Samples(1000, 0);
     const response = await ApiService.enrichBatch(sampleData.items);
-    finishBatchProgress(response);
+    finishBatchVisuals(response);
   } catch (err) {
     alert("Batch error: " + err.message);
-    resetBatchProgress();
+    el.btnRunBatch.disabled = false;
+    el.btnRunBatch.innerHTML = '⚡ Process 1,000 Items';
   }
 }
 
 async function handleCsvUpload(file) {
-  startBatchProgress(1000);
+  startBatchVisuals();
   try {
     const response = await ApiService.uploadCsv(file, 1000);
-    finishBatchProgress(response);
+    finishBatchVisuals(response);
   } catch (err) {
     alert("CSV error: " + err.message);
-    resetBatchProgress();
   }
 }
 
-let batchInterval;
-
-function startBatchProgress(total) {
+let streamInterval;
+function startBatchVisuals() {
   el.btnRunBatch.disabled = true;
-  el.btnRunBatch.innerHTML = '<div class="spinner" style="margin-right:0.5rem; display:inline-block;"></div> Processing...';
-  el.batchProgress.classList.remove('hidden');
-  el.batchPipeSteps.forEach(s => s.className = 'pipeline-step');
-  el.batchPipeSteps[0].classList.add('active');
+  el.btnRunBatch.innerHTML = '◌ PROCESSING...';
   
-  let current = 0;
-  el.liveFeed.innerHTML = '';
+  // Zero out stats
+  el.vizProd.textContent = '0';
+  el.vizAttr.textContent = '0';
+  el.vizConf.textContent = '0%';
   
-  // Zero stats
-  el.statProd.textContent = '0';
-  el.statConf.textContent = '0%';
-  el.statRev.textContent = '0';
+  el.batchTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:3rem;"><div class="empty-icon" style="font-size:1.5rem">⚡</div>Initializing Engine...</td></tr>';
   
-  batchInterval = setInterval(() => {
-    current += Math.floor(Math.random() * 45) + 15;
-    if (current >= total) current = total - Math.floor(Math.random() * 5); 
-    
-    let pct = Math.floor((current / total) * 100);
-    el.progStatusTxt.textContent = `Processing Catalog... ${current.toLocaleString()} / ${total.toLocaleString()}`;
-    el.progPctTxt.textContent = `${pct}%`;
-    el.progFill.style.width = `${pct}%`;
-    
-    // update pipeline
-    if (pct > 20) { el.batchPipeSteps[0].classList.replace('active','done'); el.batchPipeSteps[1].classList.add('active'); }
-    if (pct > 60) { el.batchPipeSteps[1].classList.replace('active','done'); el.batchPipeSteps[2].classList.add('active'); }
-    if (pct > 90) { el.batchPipeSteps[2].classList.replace('active','done'); el.batchPipeSteps[3].classList.add('active'); }
+  // Start Streaming feed
+  el.liveStreamPanel.classList.remove('hidden');
+  el.streamFeed.innerHTML = '';
+  let count = 0;
+  streamInterval = setInterval(() => {
+    count += Math.floor(Math.random() * 45) + 15;
+    if (count > 1000) count = 1000;
+    el.streamProgressTxt.textContent = `Processing ${count} / 1,000`;
     
     // add fake log
     const msgs = [
-      `<span class="scs">✓</span> PDSH4816AF enriched`,
-      `<span class="scs">✓</span> 12345-AB classified`,
-      `<span class="wrn">⚠</span> 8742-X human review`,
-      `<span class="scs">✓</span> M18-CUT validated`
+      `<span class="scs">✓</span> PDSH4816AF — classified`,
+      `<span class="scs">✓</span> 12345-AB — standardized`,
+      `<span class="wrn">⚠</span> 8742-X — human review required`,
+      `<span class="scs">✓</span> M18-CUT — validated`,
+      `✦ Extracting dimensions...`,
+      `✦ Cross-referencing vocab DB...`
     ];
     const log = document.createElement('div');
-    log.className = 'feed-item';
+    log.className = 'stream-item';
     log.innerHTML = msgs[Math.floor(Math.random() * msgs.length)];
-    el.liveFeed.appendChild(log);
+    el.streamFeed.appendChild(log);
     
-    if (el.liveFeed.children.length > 3) {
-      el.liveFeed.removeChild(el.liveFeed.firstChild);
+    if (el.streamFeed.children.length > 5) {
+      el.streamFeed.removeChild(el.streamFeed.firstChild);
     }
-  }, 250);
+  }, 300);
 }
 
-function finishBatchProgress(res) {
-  clearInterval(batchInterval);
-  
-  el.progStatusTxt.textContent = `Completed ${res.total_processed.toLocaleString()} records`;
-  el.progPctTxt.textContent = `100%`;
-  el.progFill.style.width = `100%`;
-  
-  el.batchPipeSteps[3].classList.replace('active','done');
-  
+function finishBatchVisuals(res) {
+  clearInterval(streamInterval);
+  el.btnRunBatch.innerHTML = '⚡ Process 1,000 Items';
   el.btnRunBatch.disabled = false;
-  el.btnRunBatch.innerHTML = '⚡ Process 1,000 Sample Items';
   
-  animateValue(el.statProd, 0, res.total_processed, 800);
-  animateValue(el.statConf, 0, res.average_confidence, 800, '%');
-  animateValue(el.statRev, 0, res.review_needed_count, 800);
+  el.streamProgressTxt.textContent = `Processing Complete (1,000 / 1,000)`;
+  setTimeout(() => el.liveStreamPanel.classList.add('hidden'), 2500);
   
-  renderTable(res.results);
+  // Animate Numbers
+  animateValue(el.vizProd, 0, res.total_processed, 1500);
+  animateValue(el.vizAttr, 0, 252, 1500); // hardcoded feature count for demo
+  animateValue(el.vizConf, 0, res.average_confidence, 1500, '%');
   
-  setTimeout(() => el.batchProgress.classList.add('hidden'), 3500);
-}
-
-function resetBatchProgress() {
-  clearInterval(batchInterval);
-  el.btnRunBatch.disabled = false;
-  el.btnRunBatch.innerHTML = '⚡ Process 1,000 Sample Items';
-  el.batchProgress.classList.add('hidden');
-}
-
-function renderTable(results) {
+  // Render Table
   el.batchTbody.innerHTML = '';
-  const displayItems = results.slice(0, 50);
+  const displayItems = res.results.slice(0, 50); // limit to 50 for DOM perf
   
   displayItems.forEach((p, idx) => {
     const tr = document.createElement('tr');
     tr.style.opacity = 0;
-    tr.style.animation = `textFade 300ms ease-out ${idx*10}ms forwards`;
+    tr.style.animation = `fadeSlideUp 400ms ease-out ${idx*20}ms forwards`;
     
-    let badge = p.needs_human_review 
-      ? '<span class="badge badge-rev">REVIEW</span>'
-      : '<span class="badge badge-val">VALIDATED</span>';
-      
     tr.innerHTML = `
-      <td style="color:var(--text-tertiary);">${idx+1}</td>
-      <td style="font-family:monospace; color:var(--text-secondary);">${p.mfg_part_num}</td>
-      <td style="font-weight:500;">${p.brand_name}</td>
-      <td style="font-size:0.75rem; color:var(--text-secondary);">${p.classpath}</td>
-      <td style="font-family:monospace; font-size:0.8rem;">${p.invoice_desc}</td>
+      <td style="font-family:monospace; color:var(--electric-blue);">${p.mfg_part_num}</td>
+      <td style="font-weight:600;">${p.brand_name}</td>
+      <td style="font-size:0.7rem; color:var(--text-secondary);">${p.classpath}</td>
+      <td style="font-family:monospace; font-size:0.75rem;">${p.invoice_desc}</td>
       <td>
-        <span style="font-weight:500;">${p.confidence_score}%</span>
-        <div class="conf-bar-wrap"><div class="conf-bar" style="width:${p.confidence_score}%;"></div></div>
+        <div style="display:flex; align-items:center;">
+          <span style="font-weight:600; width:35px;">${p.confidence_score}%</span>
+          <div class="conf-bar-wrap"><div class="conf-bar" style="width:${p.confidence_score}%; background:${p.confidence_score>90?'var(--status-success)':'var(--status-warning)'}"></div></div>
+        </div>
       </td>
-      <td>${badge}</td>
+      <td>
+        <span class="status-badge ${p.needs_human_review ? 'rev' : 'val'}">
+          ${p.needs_human_review ? '⚠ REVIEW' : '✓ VALIDATED'}
+        </span>
+      </td>
     `;
     el.batchTbody.appendChild(tr);
   });
@@ -374,8 +421,9 @@ function animateValue(obj, start, end, duration, suffix = '') {
     if (!startTimestamp) startTimestamp = timestamp;
     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
     const ease = 1 - Math.pow(1 - progress, 4); // easeOutQuart
-    obj.innerHTML = (progress === 1 ? end : Math.floor(ease * (end - start) + start)) + suffix;
+    obj.innerHTML = Math.floor(ease * (end - start) + start) + suffix;
     if (progress < 1) window.requestAnimationFrame(step);
+    else obj.innerHTML = end + suffix;
   };
   window.requestAnimationFrame(step);
 }
