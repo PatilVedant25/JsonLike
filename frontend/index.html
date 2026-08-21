@@ -3,44 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniCat 2.0 | AI Command Center</title>
+  <title>UniCat 2.0</title>
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-  <!-- Startup Cinematic Animation -->
+  <!-- Startup Animation -->
   <div id="startup-overlay">
-    <div class="startup-icon-wrapper"></div>
-    <div class="startup-title">UniCat</div>
-    <div class="startup-subtitle">AI Enrichment & Compliance Engine</div>
+    <div class="startup-logo">⚡</div>
+    <div class="startup-text">UniCat 2.0</div>
   </div>
 
-  <!-- Command Palette Modal -->
-  <div id="cmd-palette">
-    <div class="cmd-modal">
-      <input type="text" class="cmd-input" placeholder="Type a command or search..." autofocus>
-      <div class="cmd-list">
-        <div class="cmd-item active" data-action="enrich">⚡ Enrich product</div>
-        <div class="cmd-item" data-action="batch">🔄 Run batch processing</div>
-        <div class="cmd-item" data-action="upload">📁 Upload CSV</div>
-        <div class="cmd-item" data-action="export">📥 Export results</div>
-        <div class="cmd-item" data-action="reset">⟲ Reset workspace</div>
-      </div>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-title">UniCat 2.0</div>
+      <div class="brand-subtitle">AI Enrichment & Compliance Engine</div>
     </div>
-  </div>
 
-  <!-- Slim Modern Navigation -->
-  <header class="nav-header">
-    <div class="nav-brand"><span>⚡</span> UniCat</div>
-    <nav class="nav-links">
-      <div class="nav-link active" data-tab="studio">Live Studio</div>
-      <div class="nav-link" data-tab="batch">Batch</div>
-      <div class="nav-link" data-tab="insights">Insights</div>
+    <nav class="nav-tabs">
+      <div class="nav-tab active" data-tab="studio">Live Studio</div>
+      <div class="nav-tab" data-tab="batch">Batch Processing</div>
     </nav>
-    <div class="nav-right">
-      <div class="engine-status"><div class="dot"></div> AI Engine Online</div>
-      <div class="kbd-shortcut" id="btn-cmd-k">Cmd <kbd>⌘K</kbd></div>
-    </div>
   </header>
 
   <main class="main-content">
@@ -49,180 +34,112 @@
          TAB: LIVE STUDIO
          ============================================== -->
     <section class="tab-panel active" id="tab-studio">
-      
-      <!-- Command Center Hero -->
-      <div class="hero-section">
-        <div class="hero-text">
-          <div class="hero-badge">● AI ENGINE ONLINE</div>
-          <h1>Turn raw product data into catalog-ready intelligence.</h1>
-          <p>Enrich. Classify. Standardize. Validate.</p>
-        </div>
-        <div class="ai-core-visual">
-          <div class="core-ring core-ring-1"></div>
-          <div class="core-ring core-ring-2"></div>
-          <div class="core-ring core-ring-3"></div>
-          <div class="core-center">
-            <h3>UniCat AI</h3>
-            <p>READY</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI Workspace -->
       <div class="workspace-grid">
         
-        <!-- Left: Feed the Engine -->
-        <div class="workspace-card">
-          <div class="workspace-title">Feed the Engine</div>
-          <div class="workspace-subtitle">Drop in raw product information and let UniCat structure it.</div>
+        <!-- Input Analyzer (Left) -->
+        <div>
+          <h2>Input Analyzer</h2>
+          <p class="section-subtitle">Enter raw product information to begin enrichment.</p>
           
-          <div class="float-group">
-            <input type="text" id="input-mpn" class="float-input" placeholder=" ">
-            <label class="float-label">MPN</label>
+          <div class="form-group">
+            <label class="form-label" for="input-mpn">Manufacturer Part Number</label>
+            <input type="text" id="input-mpn" class="form-input" placeholder="e.g. PDSH4816AF">
           </div>
-          <div class="float-group">
-            <input type="text" id="input-desc" class="float-input" placeholder=" ">
-            <label class="float-label">Raw Product Description</label>
+          
+          <div class="form-group">
+            <label class="form-label" for="input-desc">Raw Product Description</label>
+            <input type="text" id="input-desc" class="form-input" placeholder="e.g. Dishwasher SS - Display Only">
           </div>
-          <div class="float-group">
-            <input type="text" id="input-manuf" class="float-input" placeholder=" ">
-            <label class="float-label">Supplier String</label>
+          
+          <div class="form-group">
+            <label class="form-label" for="input-manuf">Raw Supplier String</label>
+            <input type="text" id="input-manuf" class="form-input" placeholder="e.g. Appliance Dealers Coop">
           </div>
-          <div class="float-group">
-            <input type="text" id="input-e1-brand" class="float-input" placeholder=" ">
-            <label class="float-label">Supplier Brand (Optional)</label>
-          </div>
-
-          <div class="sample-section-title">Try a live example</div>
-          <div class="sample-grid" id="quick-samples-container">
-            <!-- Sample chips populated via JS -->
+          
+          <div class="form-group">
+            <label class="form-label" for="input-e1-brand">Supplier Brand</label>
+            <input type="text" id="input-e1-brand" class="form-input" placeholder="Optional">
           </div>
 
-          <button class="btn-enrich" id="btn-enrich-single">
+          <h3 style="margin-top:2rem; font-size:0.9rem;">Try a sample</h3>
+          <div class="sample-list" id="quick-samples-container">
+            <!-- Sample list populated via JS -->
+          </div>
+
+          <button class="btn-primary" id="btn-enrich-single">
             ⚡ Enrich & Validate
           </button>
         </div>
 
-        <!-- Right: Results & Pipeline -->
+        <!-- Enrichment Results (Right) -->
         <div>
-          <!-- Horizontal Pipeline (Hidden by default, shown on processing) -->
-          <div class="pipeline-container hidden" id="ai-pipeline">
-            <div class="pipeline-line"><div class="pipeline-line-fill" id="pipeline-fill"></div></div>
-            
-            <div class="pipeline-step" id="step-raw">
-              <div class="pipeline-dot"></div>
-              <div class="pipeline-label">RAW</div>
-            </div>
-            <div class="pipeline-step" id="step-ai">
-              <div class="pipeline-dot"></div>
-              <div class="pipeline-label">AI ENRICHMENT</div>
-            </div>
-            <div class="pipeline-step" id="step-class">
-              <div class="pipeline-dot"></div>
-              <div class="pipeline-label">CLASSIFICATION</div>
-            </div>
-            <div class="pipeline-step" id="step-std">
-              <div class="pipeline-dot"></div>
-              <div class="pipeline-label">STANDARDIZE</div>
-            </div>
-            <div class="pipeline-step" id="step-val">
-              <div class="pipeline-dot"></div>
-              <div class="pipeline-label">COMPLIANCE</div>
-            </div>
-          </div>
-
+          
           <!-- Empty State -->
           <div class="empty-state" id="studio-empty-state">
-            <div class="empty-icon">⚡</div>
-            <h3>Waiting for product data</h3>
-            <p class="empty-text">Enter an MPN or choose a sample to activate the enrichment engine.</p>
+            <h3>No product data yet</h3>
+            <p>Enter an MPN and description, or select a sample product to begin.</p>
           </div>
 
           <!-- Results Payload -->
-          <div id="results-payload" class="hidden">
+          <div id="results-payload" class="hidden fade-in">
             
-            <div class="results-header stagger-in">
-              <div>
-                <div class="result-status">Product Intelligence Ready</div>
-                <div class="result-status-sub">✓ Compliance checks passed</div>
-              </div>
-              <div class="confidence-ring-wrap">
-                <svg width="60" height="60" viewBox="0 0 60 60">
-                  <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
-                  <circle cx="30" cy="30" r="26" fill="none" stroke="#36D399" stroke-width="4" stroke-dasharray="163" stroke-dashoffset="5" id="conf-svg-ring" style="transition: stroke-dashoffset 1s ease-out;"/>
-                </svg>
-                <div class="confidence-value" id="conf-val-txt">96%</div>
+            <div class="results-header">
+              <h2 style="margin:0;">Enrichment Complete</h2>
+              <div class="status-indicator">
+                <div class="status-dot"></div> Validated
               </div>
             </div>
 
-            <!-- Identity Card -->
-            <div class="identity-card stagger-in">
-              <div class="id-title" id="id-title">--</div>
-              <div class="id-mpn" id="id-mpn">--</div>
-              <div class="id-meta" id="id-meta-tags">
-                <!-- tags injected here -->
+            <!-- Product Summary -->
+            <div class="product-identity">
+              <div class="product-title-main" id="id-title">--</div>
+              <div class="product-meta-row">
+                <span id="id-meta">--</span>
+                <span class="confidence-text" id="conf-txt">--% confidence</span>
               </div>
             </div>
 
-            <!-- Multi Tier Content -->
-            <div class="tier-section stagger-in">
-              <div class="tier-title">Delivery Content</div>
+            <!-- Multi-Tier Content -->
+            <div class="tier-section">
+              <h3>Multi-Tier Content & Construction</h3>
               
-              <div class="tier-card">
-                <div class="tier-card-header">
-                  <span>Product Title</span>
-                </div>
-                <div class="tier-card-content large" id="out-short-desc">--</div>
+              <div class="tier-block">
+                <div class="tier-label">Invoice POS Description</div>
+                <div class="tier-value" id="out-invoice-desc">--</div>
               </div>
               
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-                <div class="tier-card">
-                  <div class="tier-card-header">
-                    <span>POS</span>
-                    <span id="out-invoice-meter" style="text-transform:none; font-weight:normal;">0 / 40 chars</span>
-                  </div>
-                  <div class="tier-card-content" id="out-invoice-desc" style="font-family:monospace;">--</div>
-                </div>
-                <div class="tier-card">
-                  <div class="tier-card-header">
-                    <span>Mobile Catalog</span>
-                    <span id="out-mobile-meter" style="text-transform:none; font-weight:normal;">0 / 80 chars</span>
-                  </div>
-                  <div class="tier-card-content" id="out-mobile-desc">--</div>
-                </div>
+              <div class="tier-block">
+                <div class="tier-label">Mobile Catalog Description</div>
+                <div class="tier-value" id="out-mobile-desc">--</div>
+              </div>
+              
+              <div class="tier-block">
+                <div class="tier-label">Product Title / Short Description</div>
+                <div class="tier-value large" id="out-short-desc">--</div>
               </div>
             </div>
 
-            <!-- Intelligence Chips -->
-            <div class="tier-title stagger-in">Structured Features</div>
-            <div class="feature-chips" id="out-features">
-              <!-- JS injected chips -->
+            <!-- Features -->
+            <h3>Structured Features</h3>
+            <ul class="feature-list" id="out-features">
+              <!-- Bullet points -->
+            </ul>
+
+            <!-- Attributes -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="margin:0;">Standardized Attributes</h3>
+              <span class="meta-text" id="attr-count-txt">0 attributes standardized</span>
+            </div>
+            
+            <div class="attr-grid" id="out-attributes">
+              <!-- Attribute rows -->
             </div>
 
-            <!-- Data Explorer -->
-            <div class="tier-title stagger-in">Standardized Attributes</div>
-            <div class="attr-table-wrapper stagger-in">
-              <table class="attr-table">
-                <thead><tr><th>Attribute</th><th>Value</th><th>Status</th></tr></thead>
-                <tbody id="out-attributes">
-                  <!-- JS injected rows -->
-                </tbody>
-              </table>
+            <div style="margin-top: 2rem;">
+              <span class="meta-text">Last updated just now</span>
             </div>
 
-            <!-- AI Insight Panel -->
-            <div class="insight-panel stagger-in">
-              <div class="insight-title">⚡ Why this result?</div>
-              <div class="insight-text">UniCat identified this product's category and attributes based on cross-referencing MPN patterns with supplier vocabulary and extracting implicit features from the description string.</div>
-              <div class="insight-tags">
-                <span class="insight-tag">MPN Match</span>
-                <span class="insight-tag">Description Match</span>
-                <span class="insight-tag">Category Confidence</span>
-                <span class="insight-tag">Vocabulary Match</span>
-              </div>
-            </div>
-
-          </div> <!-- /results payload -->
+          </div>
 
         </div>
       </div>
@@ -233,51 +150,56 @@
          ============================================== -->
     <section class="tab-panel" id="tab-batch">
       
-      <div class="batch-hero">
-        <h2>Batch Intelligence</h2>
-        <p>Process thousands of raw catalog records through the UniCat enrichment engine.</p>
+      <div class="batch-header">
+        <h2>Batch Processing</h2>
+        <p class="section-subtitle">Process large product datasets and generate standardized catalog output.</p>
       </div>
 
-      <div class="batch-visualizer">
-        <div class="viz-node">
-          <div class="viz-num" id="viz-prod">1,000</div>
-          <div class="viz-label">Products</div>
+      <div class="batch-actions">
+        <button class="btn-primary" id="btn-run-batch" style="width:auto; padding:0.6rem 1.25rem;">Process 1,000 Sample Items</button>
+        <label class="btn-secondary">
+          Upload Raw CSV
+          <input type="file" id="csv-upload" accept=".csv" class="hidden">
+        </label>
+        <button class="btn-secondary" id="btn-exp-csv">Export CSV</button>
+        <button class="btn-secondary" id="btn-exp-xls">Export Excel</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-prod">0</div>
+          <div class="stat-label">Total Processed</div>
         </div>
-        <div class="viz-arrow">→</div>
-        <div class="viz-node">
-          <div class="viz-num highlight" id="viz-attr">252</div>
-          <div class="viz-label">Delivery Attributes</div>
+        <div class="stat-card">
+          <div class="stat-num">252</div>
+          <div class="stat-label">Delivery Columns</div>
         </div>
-        <div class="viz-arrow">→</div>
-        <div class="viz-node">
-          <div class="viz-num" id="viz-conf">96.4%</div>
-          <div class="viz-label">Avg Confidence</div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-conf">0%</div>
+          <div class="stat-label">Average Confidence</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-rev">0</div>
+          <div class="stat-label">Human Review Needed</div>
         </div>
       </div>
 
-      <div class="cmd-bar">
-        <button class="btn-cmd btn-cmd-primary" id="btn-run-batch">⚡ Process 1,000 Items</button>
-        <div class="cmd-actions">
-          <label class="btn-cmd">Upload CSV<input type="file" id="csv-upload" accept=".csv" class="hidden"></label>
-          <button class="btn-cmd" id="btn-exp-csv">Export CSV</button>
-          <button class="btn-cmd" id="btn-exp-xls">Export Excel</button>
+      <!-- Progress Section -->
+      <div class="progress-section hidden fade-in" id="batch-progress">
+        <div class="progress-text">
+          <span id="progress-status-txt">Processing 0 of 1,000 items</span>
+          <span id="progress-pct-txt">0%</span>
         </div>
-      </div>
-
-      <!-- Live Stream -->
-      <div class="live-stream-panel hidden" id="live-stream-panel">
-        <div class="stream-header">
-          <span>UniCat Engine</span>
-          <span id="stream-progress-txt">Processing 0 / 1,000</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill-bar"></div>
         </div>
-        <div class="stream-content" id="stream-feed">
-          <!-- JS dynamic stream -->
-        </div>
+        <div class="progress-subtext" id="progress-subtext">Initializing data...</div>
       </div>
 
       <!-- Table -->
-      <div class="batch-table-wrap">
-        <table class="batch-table">
+      <div class="table-container">
+        <table class="data-table">
           <thead>
             <tr>
               <th>MPN</th>
@@ -291,20 +213,13 @@
           <tbody id="batch-tbody">
             <tr>
               <td colspan="6" style="text-align:center; padding:3rem; color:var(--text-secondary);">
-                Awaiting batch job trigger.
+                No batch data loaded.
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </section>
 
-    <section class="tab-panel" id="tab-insights">
-      <div class="empty-state">
-        <div class="empty-icon">📊</div>
-        <h3>Insights Dashboard</h3>
-        <p class="empty-text">Cross-portfolio intelligence and analytics will appear here.</p>
-      </div>
     </section>
 
   </main>
