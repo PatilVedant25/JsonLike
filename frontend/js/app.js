@@ -8,8 +8,6 @@ const state = {
   currentTab: 'studio',
   activeProduct: null,
   batchResults: [],
-  benchmarkData: null,
-  groundTruthData: null,
   sample1000Items: []
 };
 
@@ -21,14 +19,7 @@ const SAMPLE_PRESETS = [
       Mfg_Part_Num: "PDSH4816AF",
       Part_Desc: "PDSH4816AF Dishwasher SS - Display Only",
       Part_Manuf: "Appliance Dealers Cooperative (APPDE)",
-      E1_Brand: "-- Unbranded --",
-      Unilog_Brand: "-- No Unilog Brand --",
-      DIB_Brand: "-- No DIB Brand --",
-      Dept: "Appliances",
-      Class: "Large Appliances",
-      Fine: "Dishwashers",
-      SKU: "1515863",
-      PART_NUMBER: "20887830"
+      E1_Brand: "-- Unbranded --"
     }
   },
   {
@@ -37,14 +28,7 @@ const SAMPLE_PRESETS = [
       Mfg_Part_Num: "WDTS7024RZ",
       Part_Desc: "WDTS7024RZ Dishwasher SS - Display Only",
       Part_Manuf: "Appliance Dealers Cooperative (APPDE)",
-      E1_Brand: "-- Unbranded --",
-      Unilog_Brand: "-- No Unilog Brand --",
-      DIB_Brand: "-- No DIB Brand --",
-      Dept: "Appliances",
-      Class: "Large Appliances",
-      Fine: "Dishwashers",
-      SKU: "1515867",
-      PART_NUMBER: "25286031"
+      E1_Brand: "-- Unbranded --"
     }
   },
   {
@@ -53,9 +37,7 @@ const SAMPLE_PRESETS = [
       Mfg_Part_Num: "DCB518ASTS06G",
       Part_Desc: "DCB518ASTS06G Diablo 1/2\"x18\" - Sanding Belt 6pc",
       Part_Manuf: "Freud Inc (2435)",
-      E1_Brand: "-- Unbranded --",
-      Unilog_Brand: "-- No Unilog Brand --",
-      DIB_Brand: "-- No DIB Brand --"
+      E1_Brand: "-- Unbranded --"
     }
   },
   {
@@ -64,9 +46,7 @@ const SAMPLE_PRESETS = [
       Mfg_Part_Num: "49-94-0013",
       Part_Desc: "49-94-0013 Milw 5\"x.045\"x7/8\" Metal Cut Off Disc",
       Part_Manuf: "Milwaukee Accessory (4031)",
-      E1_Brand: "-- Unbranded --",
-      Unilog_Brand: "-- No Unilog Brand --",
-      DIB_Brand: "-- No DIB Brand --"
+      E1_Brand: "-- Unbranded --"
     }
   },
   {
@@ -75,9 +55,7 @@ const SAMPLE_PRESETS = [
       Mfg_Part_Num: "ADB15516CS",
       Part_Desc: "1x6-16' Coastline Sq Edge - Vintage Azek PVC Decking",
       Part_Manuf: "Parksite (6151)",
-      E1_Brand: "TIMBERTECH",
-      Unilog_Brand: "-- No Unilog Brand --",
-      DIB_Brand: "-- No DIB Brand --"
+      E1_Brand: "TIMBERTECH"
     }
   },
   {
@@ -86,9 +64,7 @@ const SAMPLE_PRESETS = [
       Mfg_Part_Num: "565374",
       Part_Desc: "565374 75W Led A19 Med 27k 4pk",
       Part_Manuf: "Phillips Lighting (5831)",
-      E1_Brand: "-- Unbranded --",
-      Unilog_Brand: "-- No Unilog Brand --",
-      DIB_Brand: "-- No DIB Brand --"
+      E1_Brand: "-- Unbranded --"
     }
   }
 ];
@@ -118,15 +94,8 @@ const elements = {
   mobileDescText: document.getElementById('mobile-desc-text'),
   mobileMeter: document.getElementById('mobile-meter'),
   shortDescText: document.getElementById('short-desc-text'),
-  longDescText: document.getElementById('long-desc-text'),
-  retailDescText: document.getElementById('retail-desc-text'),
-  marketingDescText: document.getElementById('marketing-desc-text'),
   itemFeaturesList: document.getElementById('item-features-list'),
   attributesGrid: document.getElementById('attributes-grid'),
-  
-  productImageName: document.getElementById('product-image-name'),
-  specSheetName: document.getElementById('spec-sheet-name'),
-  mfrUrlLink: document.getElementById('mfr-url-link'),
   
   // Batch Manager Elements
   btnRun1000Batch: document.getElementById('btn-run-1000-batch'),
@@ -137,22 +106,7 @@ const elements = {
   batchTableBody: document.getElementById('batch-table-body'),
   batchSearchInput: document.getElementById('batch-search-input'),
   btnExportCsv: document.getElementById('btn-export-csv'),
-  btnExportExcel: document.getElementById('btn-export-excel'),
-  
-  // Benchmark Elements
-  btnRunBenchmark: document.getElementById('btn-run-benchmark'),
-  benchOverallAcc: document.getElementById('bench-overall-acc'),
-  benchInvoiceComp: document.getElementById('bench-invoice-comp'),
-  benchMobileComp: document.getElementById('bench-mobile-comp'),
-  benchBrandAcc: document.getElementById('bench-brand-acc'),
-  benchClasspathAcc: document.getElementById('bench-classpath-acc'),
-  diffTableBody: document.getElementById('diff-table-body'),
-  
-  // Audit Drawer Modal
-  auditModal: document.getElementById('audit-modal'),
-  auditTimeline: document.getElementById('audit-timeline'),
-  btnCloseAudit: document.getElementById('btn-close-audit'),
-  btnOpenAudit: document.getElementById('btn-open-audit')
+  btnExportExcel: document.getElementById('btn-export-excel')
 };
 
 // Initialize Application
@@ -164,9 +118,6 @@ export async function initApp() {
   // Load default sample into enricher
   loadSampleIntoForm(SAMPLE_PRESETS[0].data);
   await handleSingleEnrich();
-  
-  // Pre-load benchmark data in background
-  loadBenchmarkData();
 }
 
 // Navigation Tabs
@@ -182,10 +133,6 @@ function setupNavigation() {
       tab.classList.add('active');
       const activePanel = document.getElementById(`tab-${target}`);
       if (activePanel) activePanel.classList.add('active');
-      
-      if (target === 'benchmark' && !state.benchmarkData) {
-        loadBenchmarkData();
-      }
     });
   });
 }
@@ -226,16 +173,6 @@ function setupEventListeners() {
   
   elements.batchSearchInput.addEventListener('input', (e) => {
     filterBatchTable(e.target.value);
-  });
-  
-  elements.btnRunBenchmark.addEventListener('click', loadBenchmarkData);
-  
-  elements.btnOpenAudit.addEventListener('click', () => {
-    elements.auditModal.style.display = 'flex';
-  });
-  
-  elements.btnCloseAudit.addEventListener('click', () => {
-    elements.auditModal.style.display = 'none';
   });
   
   elements.btnExportCsv.addEventListener('click', () => {
@@ -281,23 +218,18 @@ function renderEnrichedProduct(p) {
   
   // Confidence Badge
   elements.resultConfidenceBadge.textContent = `${p.confidence_score}% Confidence`;
-  elements.resultConfidenceBadge.className = `confidence-badge ${p.confidence_score >= 90 ? 'badge-emerald' : p.confidence_score >= 80 ? 'badge-cyan' : 'badge-amber'}`;
+  elements.resultConfidenceBadge.className = `badge ${p.confidence_score >= 90 ? 'badge-emerald' : p.confidence_score >= 80 ? 'badge-cyan' : 'badge-amber'}`;
   
   // Descriptions & Live Constraint Meters
   elements.invoiceDescText.textContent = p.invoice_desc;
   const invLen = p.invoice_desc.length;
   elements.invoiceMeter.textContent = `${invLen}/40 Chars`;
-  elements.invoiceMeter.className = `char-meter ${invLen <= 40 ? 'valid' : 'invalid'}`;
   
   elements.mobileDescText.textContent = p.mobile_desc;
   const mobLen = p.mobile_desc.length;
   elements.mobileMeter.textContent = `${mobLen} Chars (Goal: 60-80)`;
-  elements.mobileMeter.className = `char-meter ${mobLen >= 60 && mobLen <= 80 ? 'valid' : mobLen > 80 ? 'invalid' : 'warning'}`;
   
   elements.shortDescText.textContent = p.short_desc;
-  elements.longDescText.textContent = p.long_desc1;
-  elements.retailDescText.textContent = p.retail_desc;
-  elements.marketingDescText.textContent = p.marketing_description;
   
   // Item Features
   elements.itemFeaturesList.innerHTML = '';
@@ -318,49 +250,6 @@ function renderEnrichedProduct(p) {
       <span class="attr-value">${attr.value} ${attr.uom || ''}</span>
     `;
     elements.attributesGrid.appendChild(card);
-  });
-  
-  // Digital Assets
-  elements.productImageName.textContent = p.product_image;
-  elements.specSheetName.textContent = p.specification_sheet;
-  elements.mfrUrlLink.href = p.mfr_url;
-  elements.mfrUrlLink.textContent = p.mfr_url;
-  
-  // Render Explainability Audit Trail
-  renderAuditTimeline(p.provenance, p.review_reasons);
-}
-
-function renderAuditTimeline(provenanceList, reviewReasons) {
-  elements.auditTimeline.innerHTML = '';
-  
-  if (reviewReasons && reviewReasons.length > 0) {
-    const alertBox = document.createElement('div');
-    alertBox.className = 'badge badge-amber';
-    alertBox.style.marginBottom = '16px';
-    alertBox.style.padding = '8px 12px';
-    alertBox.style.display = 'block';
-    alertBox.innerHTML = `<strong>Review Flags:</strong><br>${reviewReasons.join('<br>')}`;
-    elements.auditTimeline.appendChild(alertBox);
-  }
-  
-  provenanceList.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'timeline-item';
-    div.innerHTML = `
-      <div class="timeline-dot"></div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <strong style="color:var(--accent-cyan); font-size:0.85rem;">${item.field}</strong>
-        <span class="badge badge-cyan" style="font-size:0.65rem;">${Math.round(item.confidence * 100)}%</span>
-      </div>
-      <div style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">
-        Method: ${item.source_method}
-      </div>
-      <div style="font-size:0.82rem; color:var(--text-secondary);">
-        ${item.notes || ''}
-      </div>
-      ${item.raw_evidence ? `<div style="font-size:0.75rem; background:rgba(0,0,0,0.3); padding:4px 8px; border-radius:4px; margin-top:4px;">Evidence: <em>${item.raw_evidence}</em></div>` : ''}
-    `;
-    elements.auditTimeline.appendChild(div);
   });
 }
 
@@ -414,19 +303,19 @@ function renderBatchStats(resp) {
   elements.batchStatsContainer.innerHTML = `
     <div class="stat-card">
       <span class="stat-label">Total Processed</span>
-      <span class="stat-value text-gradient-cyan">${resp.total_processed}</span>
+      <span class="stat-value">${resp.total_processed}</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">Delivery Columns</span>
-      <span class="stat-value text-gradient-cyan">252</span>
+      <span class="stat-value">252</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">Average Confidence</span>
-      <span class="stat-value text-gradient-emerald">${resp.average_confidence}%</span>
+      <span class="stat-value">${resp.average_confidence}%</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">Human Review Needed</span>
-      <span class="stat-value ${resp.review_needed_count > 0 ? 'text-gradient-purple' : ''}">${resp.review_needed_count}</span>
+      <span class="stat-value">${resp.review_needed_count}</span>
     </div>
   `;
 }
@@ -445,11 +334,11 @@ function renderBatchTable(products) {
     
     tr.innerHTML = `
       <td>${idx + 1}</td>
-      <td class="text-mono" style="font-weight:600; color:var(--accent-cyan);">${p.mfg_part_num}</td>
+      <td style="font-family:monospace; font-weight:600; color:var(--accent-cyan);">${p.mfg_part_num}</td>
       <td>${p.manufacturer_name}</td>
       <td><strong>${p.brand_name}</strong></td>
       <td style="font-size:0.75rem; color:var(--text-muted);">${p.classpath}</td>
-      <td class="text-mono" style="font-size:0.75rem;">${p.invoice_desc}</td>
+      <td style="font-family:monospace; font-size:0.75rem;">${p.invoice_desc}</td>
       <td><span class="badge ${p.confidence_score >= 90 ? 'badge-emerald' : 'badge-cyan'}">${p.confidence_score}%</span></td>
       <td><span class="badge ${p.needs_human_review ? 'badge-amber' : 'badge-emerald'}">${p.needs_human_review ? 'Review' : 'Approved'}</span></td>
     `;
@@ -467,66 +356,6 @@ function filterBatchTable(query) {
     p.part_desc.toLowerCase().includes(q)
   );
   renderBatchTable(filtered);
-}
-
-// Benchmark & Ground Truth Diff
-async function loadBenchmarkData() {
-  try {
-    const summary = await ApiService.getBenchmark();
-    state.benchmarkData = summary;
-    
-    elements.benchOverallAcc.textContent = `${summary.overall_accuracy}%`;
-    elements.benchInvoiceComp.textContent = `${summary.invoice_desc_compliance}%`;
-    elements.benchMobileComp.textContent = `${summary.mobile_desc_compliance}%`;
-    elements.benchBrandAcc.textContent = `${summary.brand_accuracy}%`;
-    elements.benchClasspathAcc.textContent = `${summary.classpath_accuracy}%`;
-    
-    // Load Ground Truth Side-by-Side rows
-    const gt = await ApiService.getGroundTruthSamples();
-    renderDiffTable(gt.rows);
-  } catch (err) {
-    console.error("Benchmark error:", err);
-  }
-}
-
-function renderDiffTable(gtRows) {
-  elements.diffTableBody.innerHTML = '';
-  
-  gtRows.forEach((row, idx) => {
-    // Enrich this row with pipeline
-    const raw = {
-      Mfg_Part_Num: row.Mfg_Part_Num,
-      Part_Desc: row.Part_Desc,
-      Part_Manuf: row.Part_Manuf,
-      E1_Brand: row.E1_Brand,
-      Unilog_Brand: row.Unilog_Brand,
-      DIB_Brand: row.DIB_Brand,
-      Dept: row.Dept,
-      Class: row.Class,
-      Fine: row.Fine,
-      SKU: row["SKU - MY_PART_NUMBER"],
-      PART_NUMBER: row.PART_NUMBER
-    };
-    
-    // Compare key columns
-    const compareFields = ["MANUFACTURER_NAME", "BRAND_NAME", "INVOICE_DESC", "MOBILE_DESC", "SHORT_DESC", "Product Image"];
-    
-    compareFields.forEach(field => {
-      const gtVal = row[field] || '';
-      const predVal = row[field] || ''; // matching ground truth
-      const isMatch = true;
-      
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><strong>Item ${idx + 1} (${row.Mfg_Part_Num})</strong></td>
-        <td style="color:var(--accent-cyan);">${field}</td>
-        <td style="color:var(--text-secondary);">${gtVal}</td>
-        <td class="${isMatch ? 'diff-match' : 'diff-mismatch'}">${predVal}</td>
-        <td><span class="badge badge-emerald">100% Match</span></td>
-      `;
-      elements.diffTableBody.appendChild(tr);
-    });
-  });
 }
 
 // Start application on DOM ready
