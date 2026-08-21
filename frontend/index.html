@@ -3,31 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniCat 2.0 | AI Product Intelligence</title>
-  <meta name="description" content="AI-Powered Product Intelligence Platform for Industrial Commerce.">
-  
+  <title>UniCat 2.0 | Minimal & Premium</title>
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+
+  <!-- Startup Intro Animation -->
+  <div id="startup-overlay">
+    <div class="startup-icon">⚡</div>
+    <div class="startup-text">
+      <div class="startup-title">UniCat 2.0</div>
+      <div class="startup-subtitle">AI Enrichment & Compliance Engine</div>
+    </div>
+  </div>
 
   <!-- Header -->
   <header class="app-header">
     <div class="brand">
       <div class="brand-icon">⚡</div>
-      <div>
-        <div class="brand-title">UniCat 2.0</div>
-        <div class="brand-subtitle">AI Enrichment & Compliance Engine</div>
+      <div class="brand-text">
+        <span class="brand-title">UniCat 2.0</span>
+        <span class="brand-subtitle">AI Enrichment & Compliance Engine</span>
       </div>
     </div>
 
-    <!-- Navigation Tabs -->
-    <nav class="nav-tabs" aria-label="Main Navigation">
-      <button class="nav-tab active" data-tab="studio" id="tab-btn-studio">
-        Live Studio
-      </button>
-      <button class="nav-tab" data-tab="batch" id="tab-btn-batch">
-        Batch Processing
-      </button>
+    <!-- Navigation Tabs (Segmented Control) -->
+    <nav class="segmented-control" aria-label="Main Navigation">
+      <button class="nav-tab active" data-tab="studio" id="tab-btn-studio">Live Studio</button>
+      <button class="nav-tab" data-tab="batch" id="tab-btn-batch">Batch Processing</button>
     </nav>
   </header>
 
@@ -36,11 +39,11 @@
     
     <!-- TAB 1: Live Studio -->
     <section class="tab-panel active" id="tab-studio">
-      <div class="studio-grid">
+      <div class="grid-studio">
         
-        <!-- Left Column: Input Form -->
-        <div class="glass-panel">
-          <h2>Input Analyzer</h2>
+        <!-- Left Panel: Input Analyzer -->
+        <div class="card">
+          <div class="card-title">Input Analyzer</div>
           
           <div class="form-group">
             <label class="form-label" for="input-mpn">Manufacturer Part Number (MPN)</label>
@@ -63,85 +66,85 @@
           </div>
 
           <div class="form-group" style="margin-top: 2rem;">
-            <label class="form-label">Pre-Loaded Industrial Samples</label>
-            <div class="samples-container" id="quick-samples-container">
+            <label class="form-label">Pre-Loaded Samples</label>
+            <div class="sample-pills" id="quick-samples-container">
               <!-- Dynamically populated sample chips -->
             </div>
           </div>
 
-          <button class="btn btn-primary" id="btn-enrich-single" style="width:100%; margin-top:1.5rem; padding:1rem;">
-            ⚡ Enrich & Validate
+          <button class="btn btn-primary" id="btn-enrich-single">
+            Enrich & Validate
           </button>
         </div>
 
-        <!-- Right Column: Results Dashboard -->
-        <div class="glass-panel">
+        <!-- Right Panel: Results Dashboard -->
+        <div>
           
+          <!-- Empty State & Headers -->
           <div class="result-header">
-            <div>
-              <h1 class="result-title" id="result-title">Ready for Input</h1>
-              <div class="meta-tags">
-                <span class="badge badge-purple" id="result-mfr-pill">--</span>
-                <span class="badge badge-cyan" id="result-brand-pill">--</span>
-                <span class="badge badge-emerald" id="result-classpath-pill">--</span>
-              </div>
-            </div>
-            <div id="result-confidence-badge" class="badge badge-emerald" style="font-size:0.9rem; padding:0.5rem 1rem; visibility:hidden;">
-              --
+            <h1 class="brand-title" id="result-title" style="font-size:1.5rem;">Ready for Input</h1>
+            <div class="result-status-row" id="result-status-row" style="display:none;">
+              <span class="status-pill success">Enrichment ✓</span>
+              <span class="status-pill success">Classification ✓</span>
+              <span class="status-pill neutral" id="result-confidence-badge">Confidence</span>
             </div>
           </div>
 
           <!-- Description Generation -->
-          <h3>Multi-Tier Content & Construction</h3>
-          <div class="desc-grid">
-            
+          <div class="card-title" style="margin-bottom:0.75rem;">Multi-Tier Content & Construction</div>
+          
+          <!-- Descriptions Empty State -->
+          <div id="desc-empty-state" class="empty-state small" style="margin-bottom: 2rem;">
+            <span>Awaiting input...</span>
+          </div>
+
+          <div class="desc-grid hidden" id="desc-content-grid">
             <div class="desc-card">
-              <div class="desc-card-title">
-                <span>Invoice POS Desc (≤40 Chars)</span>
-                <span id="invoice-meter">--</span>
+              <div class="desc-label">
+                <span>Invoice POS Desc</span>
+                <span id="invoice-meter" style="font-weight:400; text-transform:none;">≤40 chars</span>
               </div>
-              <div id="invoice-desc-text" class="desc-card-content mono highlight">
-                --
-              </div>
+              <div id="invoice-desc-text" class="desc-value" style="font-family:monospace;">--</div>
             </div>
 
             <div class="desc-card">
-              <div class="desc-card-title">
-                <span>Mobile Catalog Desc (60–80 Chars)</span>
-                <span id="mobile-meter">--</span>
+              <div class="desc-label">
+                <span>Mobile Catalog Desc</span>
+                <span id="mobile-meter" style="font-weight:400; text-transform:none;">60–80 chars</span>
               </div>
-              <div id="mobile-desc-text" class="desc-card-content">
-                --
-              </div>
+              <div id="mobile-desc-text" class="desc-value">--</div>
             </div>
 
             <div class="desc-card desc-card-full">
-              <div class="desc-card-title">
+              <div class="desc-label">
                 <span>Product Title / Short Description</span>
-                <span class="badge badge-cyan" style="font-size:0.6rem;">Brand + Series + MPN + Name + Specs</span>
+                <span class="status-pill neutral" style="font-size:0.6rem; text-transform:none;">BRAND + SERIES + MPN + NAME + SPECS</span>
               </div>
-              <div id="short-desc-text" class="desc-card-content" style="font-weight:600; font-size:1.1rem;">
-                --
-              </div>
+              <div id="short-desc-text" class="desc-value" style="font-size:1.1rem; font-weight:500;">--</div>
             </div>
-
           </div>
 
           <!-- Feature Bullets -->
-          <h3>Structured Feature Bullets</h3>
-          <div style="background:var(--bg-base); border-radius:var(--radius-md); padding:1.5rem; margin-bottom:2.5rem; border:1px solid var(--border-color);">
-            <ul id="item-features-list" style="padding-left:1.5rem; color:var(--text-main); font-size:0.95rem; line-height:1.6; display:flex; flex-direction:column; gap:0.5rem;">
-              <!-- Feature list items -->
-            </ul>
+          <div class="card-title" style="margin-bottom:0.75rem;">Structured Feature Bullets</div>
+          <div id="features-empty-state" class="empty-state">
+            <div style="font-size:1.5rem; margin-bottom:0.5rem; opacity:0.5;">⚡</div>
+            <span>Enriched product features will appear here</span>
           </div>
+          <ul class="bullet-list hidden" id="item-features-list" style="margin-bottom: 2.5rem;">
+            <!-- Feature list items -->
+          </ul>
 
           <!-- Attributes Grid -->
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <h3>Standardized Attributes</h3>
-            <span class="badge badge-purple">Controlled Vocabulary</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+            <div class="card-title" style="margin:0;">Standardized Attributes</div>
+            <span class="status-pill neutral">Controlled Vocabulary</span>
           </div>
-          <div class="attr-grid" id="attributes-grid">
-            <!-- Dynamically populated attribute cards -->
+          
+          <div id="attr-empty-state" class="empty-state">
+            <span>Attributes inspector empty</span>
+          </div>
+          <div class="attr-grid hidden" id="attributes-grid">
+            <!-- Dynamically populated attribute chips -->
           </div>
 
         </div>
@@ -151,92 +154,75 @@
 
     <!-- TAB 2: Batch Processing -->
     <section class="tab-panel" id="tab-batch">
-      <div class="glass-panel" style="display:flex; flex-direction:column; gap:2rem;">
-        
-        <!-- Header & Controls -->
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
-          <div>
-            <h2>High-Throughput Batch Processing</h2>
-            <p style="color:var(--text-muted);">Process all 1,000 raw catalogue items or upload custom CSV datasets.</p>
-          </div>
-          <div style="display:flex; gap:1rem; align-items:center;">
-            <button class="btn btn-primary" id="btn-run-1000-batch">
-              🚀 Process 1,000 Sample Items
-            </button>
-            <label class="btn btn-secondary" style="cursor:pointer;">
-              📁 Upload Raw CSV
-              <input type="file" id="csv-file-input" accept=".csv" style="display:none;">
-            </label>
-            <button class="btn btn-purple" id="btn-export-csv">
-              📥 Export CSV
-            </button>
-            <button class="btn btn-secondary" id="btn-export-excel">
-              📊 Export Excel
-            </button>
-          </div>
-        </div>
-
-        <!-- Progress Bar -->
+      
+      <div class="batch-toolbar">
         <div>
-          <div class="progress-track">
-            <div id="batch-progress-bar" class="progress-fill"></div>
-          </div>
-          <div id="batch-progress-text" style="font-size:0.85rem; color:var(--text-muted); font-family:monospace; margin-top:0.5rem;">
-            Ready to process dataset.
-          </div>
+          <h2 class="brand-title" style="font-size:1.5rem; margin-bottom:0.25rem;">High-Throughput Batch Processing</h2>
+          <p style="color:var(--text-secondary); font-size:0.85rem; font-weight:500;">Process 1,000 raw catalogue items or upload custom CSV datasets.</p>
         </div>
-
-        <!-- Stats Grid -->
-        <div class="stats-grid" id="batch-stats-container">
-          <div class="stat-card">
-            <span class="stat-label">Total Processed</span>
-            <span class="stat-value">0</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Delivery Columns</span>
-            <span class="stat-value">252</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Average Confidence</span>
-            <span class="stat-value">0%</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Human Review Needed</span>
-            <span class="stat-value">0</span>
-          </div>
+        
+        <div class="batch-actions">
+          <label class="btn btn-secondary">
+            Upload Raw CSV
+            <input type="file" id="csv-file-input" accept=".csv" style="display:none;">
+          </label>
+          <button class="btn btn-secondary" id="btn-export-csv">Export CSV</button>
+          <button class="btn btn-secondary" id="btn-export-excel">Export Excel</button>
+          <button class="btn btn-primary" id="btn-run-1000-batch" style="width:auto; margin-left:1rem;">
+            Process 1,000 Sample Items
+          </button>
         </div>
-
-        <!-- Search / Filter -->
-        <div style="max-width:400px;">
-          <input type="text" id="batch-search-input" class="input-field" placeholder="Search by MPN, Brand, or Description...">
-        </div>
-
-        <!-- Enriched Data Table -->
-        <div class="table-container">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>MPN</th>
-                <th>Manufacturer</th>
-                <th>Brand</th>
-                <th>Classpath Hierarchy</th>
-                <th>Invoice Desc (≤40)</th>
-                <th>Confidence</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="batch-table-body">
-              <tr>
-                <td colspan="8" style="text-align:center; padding:3rem; color:var(--text-muted);">
-                  Click "Process 1,000 Sample Items" above to populate enriched catalog records.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
       </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid" id="batch-stats-container">
+        <div class="stat-box">
+          <span class="stat-box-label">Total Processed</span>
+          <span class="stat-box-value" id="stat-total">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Delivery Columns</span>
+          <span class="stat-box-value">252</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Average Confidence</span>
+          <span class="stat-box-value" id="stat-confidence">0%</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Human Review Needed</span>
+          <span class="stat-box-value" id="stat-review">0</span>
+        </div>
+      </div>
+
+      <div class="progress-container" id="batch-progress-container">
+        <div class="progress-bar" id="batch-progress-bar"></div>
+      </div>
+
+      <!-- Enriched Data Table -->
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>MPN</th>
+              <th>Manufacturer</th>
+              <th>Brand</th>
+              <th>Classpath Hierarchy</th>
+              <th>Invoice Desc</th>
+              <th>Confidence</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="batch-table-body">
+            <tr>
+              <td colspan="8" style="text-align:center; padding:4rem; color:var(--text-muted); font-weight:500;">
+                Click "Process 1,000 Sample Items" to populate catalog records.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </section>
 
   </main>

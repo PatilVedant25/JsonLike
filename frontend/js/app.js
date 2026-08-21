@@ -1,5 +1,5 @@
 /**
- * Main Application Logic & Interactive Workbench Controller
+ * Minimal & Premium App Logic
  */
 import { ApiService } from './api.js';
 
@@ -8,73 +8,25 @@ const state = {
   currentTab: 'studio',
   activeProduct: null,
   batchResults: [],
-  sample1000Items: []
 };
 
 // Preset Quick Samples
 const SAMPLE_PRESETS = [
-  {
-    name: "Frigidaire Dishwasher (Row 1)",
-    data: {
-      Mfg_Part_Num: "PDSH4816AF",
-      Part_Desc: "PDSH4816AF Dishwasher SS - Display Only",
-      Part_Manuf: "Appliance Dealers Cooperative (APPDE)",
-      E1_Brand: "-- Unbranded --"
-    }
-  },
-  {
-    name: "Whirlpool Eco Dishwasher (Row 2)",
-    data: {
-      Mfg_Part_Num: "WDTS7024RZ",
-      Part_Desc: "WDTS7024RZ Dishwasher SS - Display Only",
-      Part_Manuf: "Appliance Dealers Cooperative (APPDE)",
-      E1_Brand: "-- Unbranded --"
-    }
-  },
-  {
-    name: "Diablo Sanding Belt (1000 Set)",
-    data: {
-      Mfg_Part_Num: "DCB518ASTS06G",
-      Part_Desc: "DCB518ASTS06G Diablo 1/2\"x18\" - Sanding Belt 6pc",
-      Part_Manuf: "Freud Inc (2435)",
-      E1_Brand: "-- Unbranded --"
-    }
-  },
-  {
-    name: "Milwaukee Cut Off Disc",
-    data: {
-      Mfg_Part_Num: "49-94-0013",
-      Part_Desc: "49-94-0013 Milw 5\"x.045\"x7/8\" Metal Cut Off Disc",
-      Part_Manuf: "Milwaukee Accessory (4031)",
-      E1_Brand: "-- Unbranded --"
-    }
-  },
-  {
-    name: "TimberTech Azek PVC Decking",
-    data: {
-      Mfg_Part_Num: "ADB15516CS",
-      Part_Desc: "1x6-16' Coastline Sq Edge - Vintage Azek PVC Decking",
-      Part_Manuf: "Parksite (6151)",
-      E1_Brand: "TIMBERTECH"
-    }
-  },
-  {
-    name: "Philips LED Bulb",
-    data: {
-      Mfg_Part_Num: "565374",
-      Part_Desc: "565374 75W Led A19 Med 27k 4pk",
-      Part_Manuf: "Phillips Lighting (5831)",
-      E1_Brand: "-- Unbranded --"
-    }
-  }
+  { name: "Frigidaire Dishwasher", data: { Mfg_Part_Num: "PDSH4816AF", Part_Desc: "PDSH4816AF Dishwasher SS", Part_Manuf: "Appliance Dealers Coop", E1_Brand: "-- Unbranded --" } },
+  { name: "Whirlpool Eco", data: { Mfg_Part_Num: "WDTS7024RZ", Part_Desc: "WDTS7024RZ Dishwasher SS", Part_Manuf: "Appliance Dealers Coop", E1_Brand: "-- Unbranded --" } },
+  { name: "Diablo Sanding Belt", data: { Mfg_Part_Num: "DCB518ASTS06G", Part_Desc: "Diablo 1/2x18 Sanding Belt", Part_Manuf: "Freud Inc", E1_Brand: "-- Unbranded --" } },
+  { name: "Milwaukee Cut Off Disc", data: { Mfg_Part_Num: "49-94-0013", Part_Desc: "Milw 5x.045 Metal Disc", Part_Manuf: "Milwaukee", E1_Brand: "-- Unbranded --" } },
+  { name: "TimberTech PVC Decking", data: { Mfg_Part_Num: "ADB15516CS", Part_Desc: "Coastline Sq Edge PVC", Part_Manuf: "Parksite", E1_Brand: "TIMBERTECH" } },
+  { name: "Philips LED Bulb", data: { Mfg_Part_Num: "565374", Part_Desc: "75W Led A19 Med 27k", Part_Manuf: "Phillips", E1_Brand: "-- Unbranded --" } }
 ];
 
 // DOM Elements
 const elements = {
+  startupOverlay: document.getElementById('startup-overlay'),
   navTabs: document.querySelectorAll('.nav-tab'),
   tabPanels: document.querySelectorAll('.tab-panel'),
   
-  // Single Enricher Elements
+  // Single Enricher
   inputMpn: document.getElementById('input-mpn'),
   inputDesc: document.getElementById('input-desc'),
   inputManuf: document.getElementById('input-manuf'),
@@ -82,38 +34,61 @@ const elements = {
   btnEnrichSingle: document.getElementById('btn-enrich-single'),
   quickSamplesContainer: document.getElementById('quick-samples-container'),
   
-  // Single Output Display
+  // Empty States & Panels
   resultTitle: document.getElementById('result-title'),
-  resultMfrPill: document.getElementById('result-mfr-pill'),
-  resultBrandPill: document.getElementById('result-brand-pill'),
-  resultClasspathPill: document.getElementById('result-classpath-pill'),
+  resultStatusRow: document.getElementById('result-status-row'),
   resultConfidenceBadge: document.getElementById('result-confidence-badge'),
   
+  descEmptyState: document.getElementById('desc-empty-state'),
+  descContentGrid: document.getElementById('desc-content-grid'),
   invoiceDescText: document.getElementById('invoice-desc-text'),
-  invoiceMeter: document.getElementById('invoice-meter'),
   mobileDescText: document.getElementById('mobile-desc-text'),
-  mobileMeter: document.getElementById('mobile-meter'),
   shortDescText: document.getElementById('short-desc-text'),
+  
+  featuresEmptyState: document.getElementById('features-empty-state'),
   itemFeaturesList: document.getElementById('item-features-list'),
+  
+  attrEmptyState: document.getElementById('attr-empty-state'),
   attributesGrid: document.getElementById('attributes-grid'),
   
-  // Batch Manager Elements
+  // Batch Manager
   btnRun1000Batch: document.getElementById('btn-run-1000-batch'),
   csvFileInput: document.getElementById('csv-file-input'),
+  batchProgressBarContainer: document.getElementById('batch-progress-container'),
   batchProgressBar: document.getElementById('batch-progress-bar'),
-  batchProgressText: document.getElementById('batch-progress-text'),
-  batchStatsContainer: document.getElementById('batch-stats-container'),
   batchTableBody: document.getElementById('batch-table-body'),
-  batchSearchInput: document.getElementById('batch-search-input'),
+  
+  statTotal: document.getElementById('stat-total'),
+  statConfidence: document.getElementById('stat-confidence'),
+  statReview: document.getElementById('stat-review'),
+  
   btnExportCsv: document.getElementById('btn-export-csv'),
   btnExportExcel: document.getElementById('btn-export-excel')
 };
 
 // Initialize Application
 export async function initApp() {
+  handleStartupAnimation();
   setupNavigation();
   setupQuickSamples();
   setupEventListeners();
+}
+
+// Startup Animation Logic
+function handleStartupAnimation() {
+  const hasSeenIntro = sessionStorage.getItem('unicat_intro_seen');
+  
+  if (hasSeenIntro) {
+    elements.startupOverlay.style.display = 'none';
+  } else {
+    setTimeout(() => {
+      elements.startupOverlay.style.opacity = '0';
+      setTimeout(() => {
+        elements.startupOverlay.style.display = 'none';
+        sessionStorage.setItem('unicat_intro_seen', 'true');
+      }, 400); // Wait for fade transition
+    }, 1500); // 1.5s intro duration
+  }
 }
 
 // Navigation Tabs
@@ -138,7 +113,7 @@ function setupQuickSamples() {
   elements.quickSamplesContainer.innerHTML = '';
   SAMPLE_PRESETS.forEach(sample => {
     const chip = document.createElement('button');
-    chip.className = 'sample-chip';
+    chip.className = 'sample-pill';
     chip.textContent = sample.name;
     chip.addEventListener('click', () => {
       loadSampleIntoForm(sample.data);
@@ -158,26 +133,14 @@ function loadSampleIntoForm(data) {
 // Event Listeners
 function setupEventListeners() {
   elements.btnEnrichSingle.addEventListener('click', handleSingleEnrich);
-  
   elements.btnRun1000Batch.addEventListener('click', run1000Batch);
   
   elements.csvFileInput.addEventListener('change', (e) => {
-    if (e.target.files.length > 0) {
-      handleCsvUpload(e.target.files[0]);
-    }
+    if (e.target.files.length > 0) handleCsvUpload(e.target.files[0]);
   });
   
-  elements.batchSearchInput.addEventListener('input', (e) => {
-    filterBatchTable(e.target.value);
-  });
-  
-  elements.btnExportCsv.addEventListener('click', () => {
-    window.open(ApiService.getExportCsvUrl(), '_blank');
-  });
-  
-  elements.btnExportExcel.addEventListener('click', () => {
-    window.open(ApiService.getExportExcelUrl(), '_blank');
-  });
+  elements.btnExportCsv.addEventListener('click', () => window.open(ApiService.getExportCsvUrl(), '_blank'));
+  elements.btnExportExcel.addEventListener('click', () => window.open(ApiService.getExportExcelUrl(), '_blank'));
 }
 
 // Single Item Enrichment
@@ -189,7 +152,7 @@ async function handleSingleEnrich() {
     E1_Brand: elements.inputE1Brand.value.trim()
   };
   
-  elements.btnEnrichSingle.innerHTML = '<span class="spinner"></span> Enriching...';
+  elements.btnEnrichSingle.innerHTML = '<span class="spinner"></span> &nbsp; Processing...';
   elements.btnEnrichSingle.disabled = true;
   
   try {
@@ -199,159 +162,159 @@ async function handleSingleEnrich() {
   } catch (err) {
     alert("Error enriching product: " + err.message);
   } finally {
-    elements.btnEnrichSingle.innerHTML = '⚡ Enrich & Validate';
+    elements.btnEnrichSingle.innerHTML = 'Enrich & Validate';
     elements.btnEnrichSingle.disabled = false;
   }
 }
 
 // Render Enriched Product on Live Studio View
 function renderEnrichedProduct(p) {
-  // Title & Identity
+  // Title & Status Row
   elements.resultTitle.textContent = p.short_desc || p.product_name;
-  elements.resultMfrPill.textContent = p.manufacturer_name;
-  elements.resultBrandPill.textContent = p.brand_name;
-  elements.resultClasspathPill.textContent = p.classpath;
+  elements.resultStatusRow.style.display = 'flex';
   
-  // Confidence Badge
   elements.resultConfidenceBadge.textContent = `${p.confidence_score}% Confidence`;
-  elements.resultConfidenceBadge.className = `badge ${p.confidence_score >= 90 ? 'badge-emerald' : p.confidence_score >= 80 ? 'badge-cyan' : 'badge-amber'}`;
+  elements.resultConfidenceBadge.className = `status-pill ${p.confidence_score >= 90 ? 'success' : 'neutral'}`;
   
-  // Descriptions & Live Constraint Meters
+  // Hide empty states, show grids
+  elements.descEmptyState.classList.add('hidden');
+  elements.featuresEmptyState.classList.add('hidden');
+  elements.attrEmptyState.classList.add('hidden');
+  
+  elements.descContentGrid.classList.remove('hidden');
+  elements.itemFeaturesList.classList.remove('hidden');
+  elements.attributesGrid.classList.remove('hidden');
+  
+  // Descriptions
   elements.invoiceDescText.textContent = p.invoice_desc;
-  const invLen = p.invoice_desc.length;
-  elements.invoiceMeter.textContent = `${invLen}/40 Chars`;
-  
   elements.mobileDescText.textContent = p.mobile_desc;
-  const mobLen = p.mobile_desc.length;
-  elements.mobileMeter.textContent = `${mobLen} Chars (Goal: 60-80)`;
-  
   elements.shortDescText.textContent = p.short_desc;
   
-  // Item Features
+  // Staggered Feature Bullets
   elements.itemFeaturesList.innerHTML = '';
-  p.item_features.forEach(feat => {
+  p.item_features.forEach((feat, idx) => {
     const li = document.createElement('li');
     li.textContent = feat;
+    li.className = 'stagger-item';
+    li.style.animationDelay = `${idx * 100}ms`; // Stagger delay
     elements.itemFeaturesList.appendChild(li);
+    
+    // Trigger animation
+    requestAnimationFrame(() => li.classList.add('visible'));
   });
   
-  // 50-Slot Attribute Grid (showing filled attributes)
+  // Attributes Chips
   elements.attributesGrid.innerHTML = '';
   const activeAttrs = p.attributes.filter(a => a.label && a.value);
-  activeAttrs.forEach(attr => {
-    const card = document.createElement('div');
-    card.className = 'attr-card';
-    card.innerHTML = `
-      <span class="attr-label">${attr.label}</span>
-      <span class="attr-value">${attr.value} ${attr.uom || ''}</span>
+  activeAttrs.forEach((attr, idx) => {
+    const chip = document.createElement('div');
+    chip.className = 'attr-chip stagger-item';
+    chip.style.animationDelay = `${idx * 50}ms`; // Fast stagger
+    chip.innerHTML = `
+      <span class="attr-chip-label">${attr.label}</span>
+      <span class="attr-chip-value">${attr.value} ${attr.uom || ''}</span>
     `;
-    elements.attributesGrid.appendChild(card);
+    elements.attributesGrid.appendChild(chip);
+    
+    requestAnimationFrame(() => chip.classList.add('visible'));
   });
 }
 
 // Batch Processing
 async function run1000Batch() {
-  elements.btnRun1000Batch.innerHTML = '<span class="spinner"></span> Processing 1000 Items...';
+  elements.btnRun1000Batch.innerHTML = '<span class="spinner"></span> &nbsp; Processing...';
   elements.btnRun1000Batch.disabled = true;
+  elements.batchProgressBarContainer.classList.add('active');
   elements.batchProgressBar.style.width = '20%';
-  elements.batchProgressText.textContent = 'Loading 1,000 raw catalog rows...';
   
   try {
     const sampleData = await ApiService.get1000Samples(1000, 0);
-    elements.batchProgressBar.style.width = '50%';
-    elements.batchProgressText.textContent = 'Enriching and standardizing across 252 delivery columns...';
+    elements.batchProgressBar.style.width = '60%';
     
     const response = await ApiService.enrichBatch(sampleData.items);
     state.batchResults = response.results;
     
     elements.batchProgressBar.style.width = '100%';
-    elements.batchProgressText.textContent = `Completed! ${response.total_processed} items enriched in under 1 second (${response.average_confidence}% Avg Confidence).`;
     
-    renderBatchStats(response);
+    animateValue(elements.statTotal, 0, response.total_processed, 1000);
+    animateValue(elements.statConfidence, 0, response.average_confidence, 1000, '%');
+    animateValue(elements.statReview, 0, response.review_needed_count, 1000);
+    
     renderBatchTable(response.results);
+    
   } catch (err) {
     alert("Batch error: " + err.message);
   } finally {
-    elements.btnRun1000Batch.innerHTML = '🚀 Process 1,000 Sample Items';
+    setTimeout(() => elements.batchProgressBarContainer.classList.remove('active'), 1000);
+    elements.btnRun1000Batch.innerHTML = 'Process 1,000 Sample Items';
     elements.btnRun1000Batch.disabled = false;
   }
 }
 
 async function handleCsvUpload(file) {
+  elements.batchProgressBarContainer.classList.add('active');
   elements.batchProgressBar.style.width = '40%';
-  elements.batchProgressText.textContent = `Uploading and parsing ${file.name}...`;
   
   try {
     const response = await ApiService.uploadCsv(file, 1000);
     state.batchResults = response.results;
-    
     elements.batchProgressBar.style.width = '100%';
-    elements.batchProgressText.textContent = `Enriched ${response.total_processed} items from uploaded file.`;
     
-    renderBatchStats(response);
+    animateValue(elements.statTotal, 0, response.total_processed, 1000);
+    animateValue(elements.statConfidence, 0, response.average_confidence, 1000, '%');
+    animateValue(elements.statReview, 0, response.review_needed_count, 1000);
+    
     renderBatchTable(response.results);
   } catch (err) {
     alert("CSV upload failed: " + err.message);
+  } finally {
+    setTimeout(() => elements.batchProgressBarContainer.classList.remove('active'), 1000);
   }
 }
 
-function renderBatchStats(resp) {
-  elements.batchStatsContainer.innerHTML = `
-    <div class="stat-card">
-      <span class="stat-label">Total Processed</span>
-      <span class="stat-value">${resp.total_processed}</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-label">Delivery Columns</span>
-      <span class="stat-value">252</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-label">Average Confidence</span>
-      <span class="stat-value">${resp.average_confidence}%</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-label">Human Review Needed</span>
-      <span class="stat-value">${resp.review_needed_count}</span>
-    </div>
-  `;
+// Animate counting numbers
+function animateValue(obj, start, end, duration, suffix = '') {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const easeProgress = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    obj.innerHTML = Math.floor(easeProgress * (end - start) + start) + suffix;
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    } else {
+      obj.innerHTML = end + suffix;
+    }
+  };
+  window.requestAnimationFrame(step);
 }
 
+// Render Batch Table with Staggered Rows
 function renderBatchTable(products) {
   elements.batchTableBody.innerHTML = '';
-  products.slice(0, 100).forEach((p, idx) => {
+  
+  // Only render first 50 immediately for performance, the rest in background if needed
+  const displayItems = products.slice(0, 50);
+  
+  displayItems.forEach((p, idx) => {
     const tr = document.createElement('tr');
-    tr.style.cursor = 'pointer';
-    tr.addEventListener('click', () => {
-      state.activeProduct = p;
-      renderEnrichedProduct(p);
-      // Switch to studio tab
-      document.querySelector('[data-tab="studio"]').click();
-    });
+    tr.className = 'stagger-item';
+    tr.style.animationDelay = `${Math.min(idx * 30, 800)}ms`; // Cap max delay
     
     tr.innerHTML = `
       <td>${idx + 1}</td>
-      <td style="font-family:monospace; font-weight:600; color:var(--accent-cyan);">${p.mfg_part_num}</td>
+      <td class="td-mono">${p.mfg_part_num}</td>
       <td>${p.manufacturer_name}</td>
-      <td><strong>${p.brand_name}</strong></td>
-      <td style="font-size:0.75rem; color:var(--text-muted);">${p.classpath}</td>
-      <td style="font-family:monospace; font-size:0.75rem;">${p.invoice_desc}</td>
-      <td><span class="badge ${p.confidence_score >= 90 ? 'badge-emerald' : 'badge-cyan'}">${p.confidence_score}%</span></td>
-      <td><span class="badge ${p.needs_human_review ? 'badge-amber' : 'badge-emerald'}">${p.needs_human_review ? 'Review' : 'Approved'}</span></td>
+      <td style="font-weight:600;">${p.brand_name}</td>
+      <td style="font-size:0.7rem; color:var(--text-muted);">${p.classpath}</td>
+      <td class="td-mono" style="font-size:0.7rem;">${p.invoice_desc}</td>
+      <td><span class="status-pill ${p.confidence_score >= 90 ? 'success' : 'neutral'}">${p.confidence_score}%</span></td>
+      <td><span class="status-pill ${p.needs_human_review ? 'neutral' : 'success'}">${p.needs_human_review ? 'Review' : 'Approved'}</span></td>
     `;
     elements.batchTableBody.appendChild(tr);
+    
+    requestAnimationFrame(() => tr.classList.add('visible'));
   });
-}
-
-function filterBatchTable(query) {
-  if (!state.batchResults) return;
-  const q = query.toLowerCase();
-  const filtered = state.batchResults.filter(p => 
-    p.mfg_part_num.toLowerCase().includes(q) ||
-    p.brand_name.toLowerCase().includes(q) ||
-    p.manufacturer_name.toLowerCase().includes(q) ||
-    p.part_desc.toLowerCase().includes(q)
-  );
-  renderBatchTable(filtered);
 }
 
 // Start application on DOM ready
