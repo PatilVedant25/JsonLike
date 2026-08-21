@@ -35,7 +35,11 @@ else:
 
 FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
-os.makedirs(DATA_OUT_DIR, exist_ok=True)
+try:
+    os.makedirs(DATA_OUT_DIR, exist_ok=True)
+except Exception:
+    pass
+
 
 
 
