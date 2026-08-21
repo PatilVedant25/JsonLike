@@ -1,0 +1,202 @@
+{
+  "approved_uoms": {
+    "in": {
+      "type": "length",
+      "capture": "in",
+      "example": "24 in"
+    },
+    "ft": {
+      "type": "length",
+      "capture": "ft",
+      "example": "16 ft"
+    },
+    "yd": {
+      "type": "length",
+      "capture": "yd",
+      "example": "5 yd"
+    },
+    "mm": {
+      "type": "length",
+      "capture": "mm",
+      "example": "20 mm"
+    },
+    "cm": {
+      "type": "length",
+      "capture": "cm",
+      "example": "10 cm"
+    },
+    "m": {
+      "type": "length",
+      "capture": "m",
+      "example": "2 m"
+    },
+    "V": {
+      "type": "voltage",
+      "capture": "V",
+      "example": "120 V"
+    },
+    "A": {
+      "type": "amperage",
+      "capture": "A",
+      "example": "15 A"
+    },
+    "W": {
+      "type": "wattage",
+      "capture": "W",
+      "example": "60 W"
+    },
+    "kW": {
+      "type": "power",
+      "capture": "kW",
+      "example": "1.5 kW"
+    },
+    "HP": {
+      "type": "power",
+      "capture": "HP",
+      "example": "2 HP"
+    },
+    "kW-hr": {
+      "type": "energy",
+      "capture": "kW-hr",
+      "example": "240 kW-hr"
+    },
+    "dBA": {
+      "type": "sound",
+      "capture": "dBA",
+      "example": "47 dBA"
+    },
+    "K": {
+      "type": "color_temp",
+      "capture": "K",
+      "example": "2700 K"
+    },
+    "lm": {
+      "type": "luminous_flux",
+      "capture": "lm",
+      "example": "800 lm"
+    },
+    "Grit": {
+      "type": "abrasive_grit",
+      "capture": "Grit",
+      "example": "220 Grit"
+    },
+    "pc": {
+      "type": "count",
+      "capture": "pc",
+      "example": "6 pc"
+    },
+    "pk": {
+      "type": "count",
+      "capture": "pk",
+      "example": "4 pk"
+    },
+    "Disc/Box": {
+      "type": "packaging",
+      "capture": "Disc/Box",
+      "example": "50 Disc/Box"
+    },
+    "Sheets/Box": {
+      "type": "packaging",
+      "capture": "Sheets/Box",
+      "example": "50 Sheets/Box"
+    },
+    "CT": {
+      "type": "count",
+      "capture": "CT",
+      "example": "500 CT"
+    },
+    "M": {
+      "type": "count",
+      "capture": "M",
+      "example": "4 M"
+    },
+    "lb": {
+      "type": "weight",
+      "capture": "lb",
+      "example": "5 lb"
+    },
+    "oz": {
+      "type": "weight_volume",
+      "capture": "oz",
+      "example": "24 oz"
+    },
+    "cu-ft": {
+      "type": "volume",
+      "capture": "cu-ft",
+      "example": "21 cu-ft"
+    },
+    "gal": {
+      "type": "volume",
+      "capture": "gal",
+      "example": "5 gal"
+    },
+    "TPI": {
+      "type": "threads",
+      "capture": "TPI",
+      "example": "10 TPI"
+    },
+    "rpm": {
+      "type": "speed",
+      "capture": "rpm",
+      "example": "5000 rpm"
+    },
+    "deg": {
+      "type": "angle",
+      "capture": "deg",
+      "example": "30 deg"
+    },
+    "GA": {
+      "type": "gauge",
+      "capture": "GA",
+      "example": "18 GA"
+    },
+    "Ah": {
+      "type": "battery_capacity",
+      "capture": "Ah",
+      "example": "8 Ah"
+    }
+  },
+  "uom_synonyms": {
+    "inch": "in",
+    "inches": "in",
+    "in.": "in",
+    "\"": "in",
+    "foot": "ft",
+    "feet": "ft",
+    "ft.": "ft",
+    "'": "ft",
+    "volt": "V",
+    "volts": "V",
+    "v": "V",
+    "amp": "A",
+    "amps": "A",
+    "ampere": "A",
+    "a": "A",
+    "watt": "W",
+    "watts": "W",
+    "w": "W",
+    "kelvin": "K",
+    "k": "K",
+    "dba": "dBA",
+    "db": "dBA",
+    "decibel": "dBA",
+    "grit": "Grit",
+    "piece": "pc",
+    "pieces": "pc",
+    "pack": "pk",
+    "ct": "CT",
+    "count": "CT",
+    "cf": "cu-ft",
+    "cu ft": "cu-ft",
+    "ga": "GA",
+    "gauge": "GA",
+    "ah": "Ah",
+    "amp-hour": "Ah"
+  },
+  "rules": [
+    "Always include exactly one space between numerical value and UOM abbreviation (e.g. '24 in', '120 V', '15 A').",
+    "Never append periods to unit abbreviations unless part of a sentence.",
+    "Always convert decimal inches to standard fractional representations where applicable (e.g. 50.25 in -> 50-1/4 in).",
+    "Keep dimension combinations standardized (e.g. '24 in W x 24-1/4 in D', '33-7/16 in H x 23-7/8 in W x 22-5/8 in D')."
+  ]
+}

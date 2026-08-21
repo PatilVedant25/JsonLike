@@ -1,0 +1,244 @@
+{
+  "dishwashers": {
+    "dept": "Appliances",
+    "class": "Large Appliances",
+    "fine": "Dishwashers",
+    "classpath": "Appliances & Consumer Electronics>Kitchen Appliances>Built-In Dishwashers",
+    "product_name": "Dishwasher",
+    "default_warranty": "1 Year Manufacturer, 1 Year Labor and Parts",
+    "standards": "ASSE 1006|CEE Tier 2 Qualified|cUL Listed|ENERGY STAR Certified|NSF Certified|UL Listed",
+    "uom_slots": {
+      "Voltage Rating": "V",
+      "Amperage Rating": "A",
+      "Depth With Door Open": "in",
+      "Minimum Height": "in",
+      "Maximum Height": "in",
+      "Sound Level": "dBA"
+    },
+    "attribute_order": [
+      "Series",
+      "Model",
+      "Number of Wash Cycles",
+      "Voltage Rating",
+      "Amperage Rating",
+      "Mounting Type",
+      "Plug Type",
+      "Size",
+      "Depth With Door Open",
+      "Minimum Height",
+      "Maximum Height",
+      "Sound Level",
+      "Material",
+      "Color",
+      "Additional Information"
+    ]
+  },
+  "dryers": {
+    "dept": "Appliances",
+    "class": "Large Appliances",
+    "fine": "Dryers",
+    "classpath": "Appliances & Consumer Electronics>Laundry Appliances>Dryers",
+    "product_name": "Dryer",
+    "default_warranty": "3 Year Manufacturer Limited Warranty",
+    "attribute_order": [
+      "Series",
+      "Fuel Type",
+      "Capacity",
+      "Voltage Rating",
+      "Color",
+      "Material",
+      "Additional Information"
+    ]
+  },
+  "washers": {
+    "dept": "Appliances",
+    "class": "Large Appliances",
+    "fine": "Washing Machines",
+    "classpath": "Appliances & Consumer Electronics>Laundry Appliances>Washing Machines",
+    "product_name": "Washing Machine",
+    "default_warranty": "3 Year Manufacturer Limited Warranty",
+    "attribute_order": [
+      "Series",
+      "Load Type",
+      "Capacity",
+      "Number of Wash Cycles",
+      "Voltage Rating",
+      "Color",
+      "Material",
+      "Additional Information"
+    ]
+  },
+  "ranges": {
+    "dept": "Appliances",
+    "class": "Large Appliances",
+    "fine": "Ranges",
+    "classpath": "Appliances & Consumer Electronics>Kitchen Appliances>Ranges",
+    "product_name": "Range",
+    "default_warranty": "1 Year Limited Warranty",
+    "attribute_order": [
+      "Series",
+      "Fuel Type",
+      "Size",
+      "Oven Capacity",
+      "Number of Burners",
+      "Color",
+      "Material",
+      "Additional Information"
+    ]
+  },
+  "refrigerators": {
+    "dept": "Appliances",
+    "class": "Large Appliances",
+    "fine": "Refrigerators",
+    "classpath": "Appliances & Consumer Electronics>Kitchen Appliances>Refrigerators",
+    "product_name": "Refrigerator",
+    "default_warranty": "1 Year Manufacturer Limited Warranty",
+    "attribute_order": [
+      "Series",
+      "Total Capacity",
+      "Refrigerator Style",
+      "Size",
+      "Color",
+      "Material",
+      "Energy Star Certified",
+      "Additional Information"
+    ]
+  },
+  "microwaves": {
+    "dept": "Appliances",
+    "class": "Small Appliances",
+    "fine": "Microwaves",
+    "classpath": "Appliances & Consumer Electronics>Kitchen Appliances>Microwaves",
+    "product_name": "Microwave Oven",
+    "default_warranty": "1 Year Limited Warranty",
+    "attribute_order": [
+      "Series",
+      "Mounting Type",
+      "Capacity",
+      "Wattage",
+      "Color",
+      "Material",
+      "Additional Information"
+    ]
+  },
+  "coffee_makers": {
+    "dept": "Appliances",
+    "class": "Small Appliances",
+    "fine": "Coffee & Espresso",
+    "classpath": "Appliances & Consumer Electronics>Small Appliances>Coffee Makers",
+    "product_name": "Coffee Maker",
+    "default_warranty": "1 Year Limited Warranty",
+    "attribute_order": [
+      "Series",
+      "Type",
+      "Capacity",
+      "Color",
+      "Material",
+      "Additional Information"
+    ]
+  },
+  "saw_blades": {
+    "dept": "Tools & Hardware",
+    "class": "Power Tool Accessories",
+    "fine": "Saw Blades",
+    "classpath": "Tools & Hardware>Power Tool Accessories>Saw Blades>Circular Saw Blades",
+    "product_name": "Circular Saw Blade",
+    "default_warranty": "Limited Lifetime Warranty",
+    "attribute_order": [
+      "Diameter",
+      "Number of Teeth",
+      "Arbor Size",
+      "Kerf",
+      "Material Application",
+      "Hook Angle",
+      "Plate Thickness",
+      "Tooth Grind"
+    ]
+  },
+  "abrasives": {
+    "dept": "Tools & Hardware",
+    "class": "Power Tool Accessories",
+    "fine": "Abrasives & Sanding",
+    "classpath": "Tools & Hardware>Power Tool Accessories>Abrasives>Sanding Discs & Belts",
+    "product_name": "Abrasive Sanding Disc",
+    "default_warranty": "Manufacturer Quality Guarantee",
+    "attribute_order": [
+      "Diameter",
+      "Grit",
+      "Abrasive Material",
+      "Backing Type",
+      "Attachment Type",
+      "Quantity Per Pack"
+    ]
+  },
+  "power_tools": {
+    "dept": "Tools & Hardware",
+    "class": "Power Tools",
+    "fine": "Cordless Tools",
+    "classpath": "Tools & Hardware>Power Tools>Cordless Tools",
+    "product_name": "Power Tool",
+    "default_warranty": "3 Year Limited Warranty, 1 Year Free Service",
+    "attribute_order": [
+      "Voltage Rating",
+      "Motor Type",
+      "Battery System",
+      "Chuck Size",
+      "Maximum Speed",
+      "Tool Weight",
+      "Includes"
+    ]
+  },
+  "decking": {
+    "dept": "Building Materials",
+    "class": "Lumber & Composites",
+    "fine": "Decking",
+    "classpath": "Building Materials>Decking & Railing>Composite & PVC Decking",
+    "product_name": "Decking Board",
+    "default_warranty": "25-50 Year Limited Residential Warranty",
+    "attribute_order": [
+      "Collection",
+      "Profile",
+      "Thickness",
+      "Width",
+      "Length",
+      "Color/Finish",
+      "Material Construction",
+      "Grooved/Square Edge"
+    ]
+  },
+  "lighting": {
+    "dept": "Lighting & Electrical",
+    "class": "Lamps & Bulbs",
+    "fine": "LED Bulbs",
+    "classpath": "Lighting & Electrical>Lamps & Bulbs>LED Bulbs",
+    "product_name": "LED Bulb",
+    "default_warranty": "3-5 Year Manufacturer Warranty",
+    "attribute_order": [
+      "Bulb Shape",
+      "Base Type",
+      "Wattage Equivalent",
+      "Actual Wattage",
+      "Color Temperature",
+      "Lumens",
+      "Dimmable",
+      "Package Quantity"
+    ]
+  },
+  "electrical": {
+    "dept": "Lighting & Electrical",
+    "class": "Wiring Devices",
+    "fine": "Switches & Outlets",
+    "classpath": "Lighting & Electrical>Wiring Devices & Light Controls>Outlets & Switches",
+    "product_name": "Wiring Device",
+    "default_warranty": "2 Year Limited Warranty",
+    "attribute_order": [
+      "Device Type",
+      "Amperage Rating",
+      "Voltage Rating",
+      "NEMA Configuration",
+      "Color",
+      "Material",
+      "Certifications"
+    ]
+  }
+}

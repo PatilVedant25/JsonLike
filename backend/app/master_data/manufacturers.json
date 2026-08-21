@@ -1,0 +1,745 @@
+{
+  "APPDE": {
+    "distributor": "Appliance Dealers Cooperative (APPDE)",
+    "patterns": [
+      {
+        "prefix": "PDSH",
+        "brand": "FRIGIDAIRE\u00ae",
+        "manufacturer": "Rheem Manufacturing",
+        "series": "Professional Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "PCFE",
+        "brand": "FRIGIDAIRE\u00ae",
+        "manufacturer": "Rheem Manufacturing",
+        "series": "Professional Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "PMOS",
+        "brand": "FRIGIDAIRE\u00ae",
+        "manufacturer": "Rheem Manufacturing",
+        "series": "Professional Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "GCFG",
+        "brand": "FRIGIDAIRE\u00ae",
+        "manufacturer": "Rheem Manufacturing",
+        "series": "Gallery Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "PRFS",
+        "brand": "FRIGIDAIRE\u00ae",
+        "manufacturer": "Rheem Manufacturing",
+        "series": "Professional Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "WDTS",
+        "brand": "Whirlpool\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Eco Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "WSGS",
+        "brand": "Whirlpool\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Eco Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "WMMS",
+        "brand": "Whirlpool\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Eco Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "MVWP",
+        "brand": "Whirlpool\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Commercial Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "KDFM",
+        "brand": "KitchenAid\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "PrintShield Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "KDTS",
+        "brand": "KitchenAid\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Architect Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "KDPS",
+        "brand": "KitchenAid\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Color Finish Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "KSES",
+        "brand": "KitchenAid\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Architect Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "KMMF",
+        "brand": "KitchenAid\u00ae",
+        "manufacturer": "Whirlpool Corporation",
+        "series": "Architect Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "PDT",
+        "brand": "GE Profile\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Profile Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "PDD",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Standard Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "PTD",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Standard Series",
+        "category": "Dryers"
+      },
+      {
+        "prefix": "PTW",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Profile Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "PEP",
+        "brand": "GE Profile\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Profile Series",
+        "category": "Cooktops"
+      },
+      {
+        "prefix": "PS960",
+        "brand": "GE Profile\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Profile Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "PB900",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Standard Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "CHP",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Caf\u00e9 Series",
+        "category": "Cooktops"
+      },
+      {
+        "prefix": "C7CD",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Specialty Drip Series",
+        "category": "Coffee Makers"
+      },
+      {
+        "prefix": "C7CE",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Bellissimo Series",
+        "category": "Espresso Machines"
+      },
+      {
+        "prefix": "CES",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Caf\u00e9 Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "CVM",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Caf\u00e9 Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "C9TM",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Caf\u00e9 Series",
+        "category": "Toasters"
+      },
+      {
+        "prefix": "C90A",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Caf\u00e9 Series",
+        "category": "Toaster Ovens"
+      },
+      {
+        "prefix": "CVE",
+        "brand": "Caf\u00e9\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Caf\u00e9 Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "GDE",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Energy Star Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "FCM",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Chest Freezer Series",
+        "category": "Freezers"
+      },
+      {
+        "prefix": "GNE",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "French Door Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "PAD",
+        "brand": "GE Profile\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Door-in-Door Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "PGE",
+        "brand": "GE Profile\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Smart Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "GCST",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Countertop Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "PCWK",
+        "brand": "GE Profile\u2122",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Profile Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "JXGRILL",
+        "brand": "GE\u00ae",
+        "manufacturer": "Haier US Appliance Solutions, Inc.",
+        "series": "Range Accessory",
+        "category": "Range Accessories"
+      },
+      {
+        "prefix": "LDPH",
+        "brand": "LG\u00ae",
+        "manufacturer": "LG Electronics Inc.",
+        "series": "QuadWash\u00ae Series",
+        "category": "Dishwashers"
+      },
+      {
+        "prefix": "WKE",
+        "brand": "LG\u00ae",
+        "manufacturer": "LG Electronics Inc.",
+        "series": "WashTower\u2122 Series",
+        "category": "Laundry Centers"
+      },
+      {
+        "prefix": "MSER",
+        "brand": "LG\u00ae",
+        "manufacturer": "LG Electronics Inc.",
+        "series": "NeoChef\u2122 Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "LSEL",
+        "brand": "LG\u00ae",
+        "manufacturer": "LG Electronics Inc.",
+        "series": "InstaView\u00ae Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "LT18",
+        "brand": "LG\u00ae",
+        "manufacturer": "LG Electronics Inc.",
+        "series": "Top Freezer Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "DF7",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "DF7 Series",
+        "category": "Dryers"
+      },
+      {
+        "prefix": "DR7",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "DR7 Series",
+        "category": "Dryers"
+      },
+      {
+        "prefix": "DV2",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "DV2 Series",
+        "category": "Dryers"
+      },
+      {
+        "prefix": "DC5",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "DC5 Series",
+        "category": "Dryers"
+      },
+      {
+        "prefix": "FF7",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "FF7 Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "DR5",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "DR5 Series",
+        "category": "Dryers"
+      },
+      {
+        "prefix": "TV2",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "TV2 Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "TC5",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "TC5 Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "TR7",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "TR7 Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "TR5",
+        "brand": "Speed Queen\u00ae",
+        "manufacturer": "Alliance Laundry Systems LLC",
+        "series": "TR5 Series",
+        "category": "Washing Machines"
+      },
+      {
+        "prefix": "WOSP",
+        "brand": "Beko\u00ae",
+        "manufacturer": "Beko US Inc.",
+        "series": "Pro Series",
+        "category": "Wall Ovens"
+      },
+      {
+        "prefix": "SLER",
+        "brand": "Beko\u00ae",
+        "manufacturer": "Beko US Inc.",
+        "series": "Pro Series",
+        "category": "Ranges"
+      },
+      {
+        "prefix": "SMC",
+        "brand": "Sharp\u00ae",
+        "manufacturer": "Sharp Electronics Corporation",
+        "series": "Carousel\u00ae Series",
+        "category": "Microwaves"
+      },
+      {
+        "prefix": "SMD",
+        "brand": "Sharp\u00ae",
+        "manufacturer": "Sharp Electronics Corporation",
+        "series": "Microwave Drawer\u00ae",
+        "category": "Microwave Drawers"
+      },
+      {
+        "prefix": "ERFD",
+        "brand": "Element\u00ae",
+        "manufacturer": "Element Electronics",
+        "series": "French Door Series",
+        "category": "Refrigerators"
+      },
+      {
+        "prefix": "EUF",
+        "brand": "Element\u00ae",
+        "manufacturer": "Element Electronics",
+        "series": "Upright Freezer Series",
+        "category": "Freezers"
+      },
+      {
+        "prefix": "XOU",
+        "brand": "XO\u00ae",
+        "manufacturer": "XO Appliance",
+        "series": "Beverage Center Series",
+        "category": "Beverage Centers"
+      }
+    ]
+  },
+  "Milwaukee Accessory (4031)": {
+    "brand": "Milwaukee\u00ae",
+    "manufacturer": "Milwaukee Electric Tool Corporation",
+    "series_keywords": {
+      "M18": "M18\u2122",
+      "M12": "M12\u2122",
+      "PACKOUT": "PACKOUT\u2122",
+      "SHOCKWAVE": "SHOCKWAVE\u2122",
+      "HOLE DOZER": "Hole Dozer\u2122",
+      "SAWZALL": "SAWZALL\u00ae",
+      "PERFORM+": "Performance+"
+    }
+  },
+  "Freud Inc (2435)": {
+    "brand": "Diablo\u00ae",
+    "manufacturer": "Freud America, Inc.",
+    "series_keywords": {
+      "STEEL DEMON": "Steel Demon\u2122",
+      "SPEED DEMON": "Speed Demon\u2122",
+      "DEMON": "Demon\u2122"
+    }
+  },
+  "Jam Industrial Supply LLC (JAMIN)": {
+    "brand": "3M\u00ae",
+    "manufacturer": "3M Company",
+    "series_keywords": {
+      "CUBITRON": "Cubitron\u2122 II",
+      "STIKIT": "Stikit\u2122",
+      "775L": "775L"
+    }
+  },
+  "Mirka Abrasives Inc (MIRUS)": {
+    "brand": "Mirka\u00ae",
+    "manufacturer": "Mirka Abrasives, Inc.",
+    "series_keywords": {
+      "ABRANET": "Abranet\u00ae",
+      "HIOLIT": "HIOLIT\u00ae",
+      "DEOS": "DEOS\u00ae",
+      "IRIDIUM": "Iridium\u00ae"
+    }
+  },
+  "Black & Decker/dewlt (2585)": {
+    "brand": "DEWALT\u00ae",
+    "manufacturer": "Stanley Black & Decker, Inc.",
+    "series_keywords": {
+      "20V MAX": "20V MAX*",
+      "FLEXVOLT": "FLEXVOLT\u00ae",
+      "ATOMIC": "ATOMIC\u2122",
+      "XR": "XR\u00ae",
+      "POWERPACK": "POWERPACK\u2122"
+    }
+  },
+  "Makita Usa Inc (5142)": {
+    "brand": "Makita\u00ae",
+    "manufacturer": "Makita U.S.A., Inc.",
+    "series_keywords": {
+      "LXT": "18V LXT\u00ae",
+      "XGT": "40V max XGT\u00ae",
+      "AVT": "AVT\u00ae"
+    }
+  },
+  "Festool USA (FESTO)": {
+    "brand": "Festool\u00ae",
+    "manufacturer": "Festool USA",
+    "series_keywords": {
+      "CLEANTEC": "CLEANTEC\u00ae",
+      "SYSTAINER": "Systainer\u00ae",
+      "ETSC": "ETSC"
+    }
+  },
+  "Kreg Tool Company (KRETO)": {
+    "brand": "Kreg\u00ae",
+    "manufacturer": "Kreg Tool Company",
+    "series_keywords": {
+      "IONIC": "Ionic\u2122"
+    }
+  },
+  "Phillips Lighting (5831)": {
+    "brand": "Philips\u00ae",
+    "manufacturer": "Signify North America Corporation",
+    "series_keywords": {
+      "WIZ": "WiZ\u00ae",
+      "LED": "LED"
+    }
+  },
+  "Satco Prod Inc (5573)": {
+    "brand": "Satco\u00ae",
+    "manufacturer": "Satco Products, Inc.",
+    "series_keywords": {
+      "NUVO": "Nuvo\u00ae",
+      "STARFISH": "Starfish\u2122"
+    }
+  },
+  "Kichler Lighting (KICLI)": {
+    "brand": "Kichler\u00ae",
+    "manufacturer": "Kichler Lighting LLC",
+    "series_keywords": {}
+  },
+  "Leviton Mfg Co (4927)": {
+    "brand": "Leviton\u00ae",
+    "manufacturer": "Leviton Manufacturing Co., Inc.",
+    "series_keywords": {
+      "DECORA": "Decora\u00ae",
+      "SMART": "Decora Smart\u00ae"
+    }
+  },
+  "Southwire/g Turner (6603)": {
+    "brand": "Southwire\u00ae",
+    "manufacturer": "Southwire Company, LLC",
+    "series_keywords": {
+      "ROMAX": "Romex\u00ae",
+      "SIMPULL": "SIMpull\u00ae"
+    }
+  },
+  "Boise Cascade Building Materials (BOICA)": {
+    "brand": "Trex\u00ae",
+    "manufacturer": "Trex Company, Inc.",
+    "series_keywords": {
+      "LINEAGE": "Transcend\u00ae Lineage\u2122",
+      "TRANSCEND": "Transcend\u00ae",
+      "ENHANCE NATURALS": "Enhance\u00ae Naturals",
+      "ENHANCE BASICS": "Enhance\u00ae Basics",
+      "ENHANCE": "Enhance\u00ae",
+      "SELECT 2.0": "Select 2.0\u00ae",
+      "SELECT": "Select\u00ae"
+    }
+  },
+  "U S Lumber (3073)": {
+    "brand": "Trex\u00ae",
+    "manufacturer": "Trex Company, Inc.",
+    "series_keywords": {
+      "LINEAGE": "Transcend\u00ae Lineage\u2122",
+      "TRANSCEND": "Transcend\u00ae",
+      "SELECT": "Select\u00ae"
+    }
+  },
+  "Parksite (6151)": {
+    "brand": "TimberTech\u00ae",
+    "manufacturer": "The AZEK Company LLC",
+    "series_keywords": {
+      "VINTAGE": "Vintage Collection\u00ae",
+      "LANDMARK": "Landmark Collection\u2122",
+      "HARVEST": "Harvest Collection\u00ae",
+      "AZEK": "AZEK\u00ae"
+    }
+  },
+  "Hunter Fan Co (4381)": {
+    "brand": "Hunter\u00ae",
+    "manufacturer": "Hunter Fan Company",
+    "series_keywords": {}
+  },
+  "Edge Eyewear Inc (EDGSA)": {
+    "brand": "Edge\u00ae",
+    "manufacturer": "Edge Eyewear Inc.",
+    "series_keywords": {}
+  },
+  "Tech Gear 5.7 Inc (TECGE)": {
+    "brand": "Mobile Warming\u00ae",
+    "manufacturer": "Tech Gear 5.7 Inc.",
+    "series_keywords": {
+      "UTW PRO": "UTW Pro\u2122",
+      "AERIAL SNOW": "Aerial Snow\u2122"
+    }
+  },
+  "Certainteed Gypsum (2765)": {
+    "brand": "CertainTeed\u00ae",
+    "manufacturer": "CertainTeed Corporation",
+    "series_keywords": {
+      "EASI-LITE": "Easi-Lite\u00ae",
+      "FIRELITE": "FireLite\u00ae"
+    }
+  },
+  "Huber Eng Wood LLC (3158)": {
+    "brand": "ZIP System\u00ae",
+    "manufacturer": "Huber Engineered Woods LLC",
+    "series_keywords": {
+      "RAINSCREEN": "Rainscreen\u2122",
+      "R-SHEATHING": "R-Sheathing\u2122",
+      "BLUE PLUS": "Advantech Blue Plus\u00ae"
+    }
+  },
+  "James Hardie (JAMESHARDIE)": {
+    "brand": "James Hardie\u00ae",
+    "manufacturer": "James Hardie Building Products Inc.",
+    "series_keywords": {
+      "HARDIEPLANK": "HardiePlank\u00ae",
+      "HARDIEPANEL": "HardiePanel\u00ae"
+    }
+  },
+  "LP SMARTSIDE": {
+    "brand": "LP\u00ae SmartSide\u00ae",
+    "manufacturer": "Louisiana-Pacific Corporation",
+    "series_keywords": {
+      "SMART LAP": "SmartSide\u00ae Lap Siding",
+      "SMART PAN": "SmartSide\u00ae Panel",
+      "SMART VENTED SOFF": "SmartSide\u00ae Vented Soffit"
+    }
+  },
+  "Senco Products Inc (4650)": {
+    "brand": "Senco\u00ae",
+    "manufacturer": "KYOCERA Senco Industrial Tools, Inc.",
+    "series_keywords": {}
+  },
+  "National Nail Corp (7439)": {
+    "brand": "National Nail\u00ae",
+    "manufacturer": "National Nail Corp.",
+    "series_keywords": {
+      "PASLODE": "Paslode\u00ae"
+    }
+  },
+  "Marshalltown Trowel (5155)": {
+    "brand": "Marshalltown\u00ae",
+    "manufacturer": "Marshalltown Company",
+    "series_keywords": {
+      "WAL-BOARD": "Wal-Board\u00ae"
+    }
+  },
+  "Wera Tools NA Inc (WERTO)": {
+    "brand": "Wera\u00ae",
+    "manufacturer": "Wera Tools Inc.",
+    "series_keywords": {
+      "HEX-PLUS": "Hex-Plus\u00ae"
+    }
+  },
+  "Vessel Tools USA Inc (VESTO)": {
+    "brand": "Vessel\u00ae",
+    "manufacturer": "Vessel Tools USA, Inc.",
+    "series_keywords": {}
+  },
+  "Amana Tool Corp (AMATO)": {
+    "brand": "Amana Tool\u00ae",
+    "manufacturer": "Amana Tool Corporation",
+    "series_keywords": {}
+  },
+  "Whiteside Machine & Repair Co (WHIMA)": {
+    "brand": "Whiteside\u00ae",
+    "manufacturer": "Whiteside Machine Company",
+    "series_keywords": {}
+  },
+  "Oliver Machinery Company (OLIMA)": {
+    "brand": "Oliver\u00ae",
+    "manufacturer": "Oliver Machinery Company",
+    "series_keywords": {}
+  },
+  "JPW Industries (JPWIN)": {
+    "brand": "JET\u00ae",
+    "manufacturer": "JPW Industries Inc.",
+    "series_keywords": {}
+  },
+  "Saw Stop LLC (SAWST)": {
+    "brand": "SawStop\u00ae",
+    "manufacturer": "SawStop LLC",
+    "series_keywords": {
+      "T-GLIDE": "T-Glide\u2122"
+    }
+  },
+  "King Canada Inc (KINCA)": {
+    "brand": "King Canada\u00ae",
+    "manufacturer": "King Canada Inc.",
+    "series_keywords": {}
+  },
+  "Woodstock Intl (3658)": {
+    "brand": "Grizzly\u00ae",
+    "manufacturer": "Woodstock International, Inc.",
+    "series_keywords": {}
+  },
+  "Bow Products (BOWPR)": {
+    "brand": "BOW Products\u00ae",
+    "manufacturer": "Bow Products, LLC",
+    "series_keywords": {
+      "XTENDER": "XTENDER Fence\u2122"
+    }
+  },
+  "Woodpeckers Inc (WOODP)": {
+    "brand": "Woodpeckers\u00ae",
+    "manufacturer": "Woodpeckers, Inc.",
+    "series_keywords": {
+      "BIGCAL": "BigCal\u2122"
+    }
+  },
+  "United Window & Door Manufacturing (UNIWI)": {
+    "brand": "United Window & Door\u00ae",
+    "manufacturer": "United Window & Door Mfg.",
+    "series_keywords": {
+      "4500": "4500 Series",
+      "3900": "3900 Series"
+    }
+  },
+  "ProVia (PRODO)": {
+    "brand": "ProVia\u00ae",
+    "manufacturer": "ProVia LLC",
+    "series_keywords": {
+      "ECOLITE": "ecoLite\u2122"
+    }
+  },
+  "Velux America Inc (VELAM)": {
+    "brand": "VELUX\u00ae",
+    "manufacturer": "VELUX America LLC",
+    "series_keywords": {}
+  },
+  "Square D Con Prod Dv (6825)": {
+    "brand": "Square D\u00ae",
+    "manufacturer": "Schneider Electric USA, Inc.",
+    "series_keywords": {
+      "HOMELINE": "Homeline\u2122",
+      "QO": "QO\u2122"
+    }
+  },
+  "First Alert - B R K Brands (2754)": {
+    "brand": "First Alert\u00ae",
+    "manufacturer": "BRK Brands, Inc.",
+    "series_keywords": {}
+  },
+  "Ohio Firewatch Protection Inc (HOLFS)": {
+    "brand": "Strike First\u00ae",
+    "manufacturer": "Ohio Firewatch Protection Inc.",
+    "series_keywords": {}
+  },
+  "Palmer Donavin Mfg Company (PALDO)": {
+    "brand": "Owens Corning\u00ae",
+    "manufacturer": "Owens Corning",
+    "series_keywords": {
+      "DURATION": "Duration\u00ae TruDefinition\u00ae"
+    }
+  }
+}

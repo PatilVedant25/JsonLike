@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Product Intelligence Platform | UniCat 2.0</title>
+  <meta name="description" content="AI-Powered Product Intelligence Platform for Industrial Commerce. Transforms raw catalog data into 252-column commerce-ready records with explainability and compliance.">
+  
+  <link rel="stylesheet" href="/static/css/design-system.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header glass-panel">
+      <div class="brand-logo">
+        <div class="logo-icon">⚡</div>
+        <div class="brand-text">
+          <h1><span class="text-gradient-cyan">UniCat 2.0</span> Product Intelligence</h1>
+          <p>Industrial Catalog AI Enrichment & 252-Column Compliance Engine</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" aria-label="Main Navigation">
+        <button class="nav-tab active" data-tab="studio" id="tab-btn-studio">
+          <span>🛠️</span> Live Studio
+        </button>
+        <button class="nav-tab" data-tab="batch" id="tab-btn-batch">
+          <span>📊</span> Batch Processing (1,000)
+        </button>
+        <button class="nav-tab" data-tab="benchmark" id="tab-btn-benchmark">
+          <span>🎯</span> Ground Truth Benchmark
+        </button>
+        <button class="nav-tab" data-tab="vocab" id="tab-btn-vocab">
+          <span>📖</span> Master Vocabularies
+        </button>
+      </nav>
+
+      <!-- Header Status Pill -->
+      <div class="system-status">
+        <span class="badge badge-emerald">
+          <span style="display:inline-block; width:6px; height:6px; background:#10b981; border-radius:50%;"></span>
+          252 Columns Active
+        </span>
+        <button class="btn btn-secondary btn-sm" id="btn-open-audit">
+          🔍 Audit Trail
+        </button>
+      </div>
+    </header>
+
+    <!-- TAB 1: Live Studio / Single Item Enricher -->
+    <main class="tab-panel active" id="tab-studio">
+      <div class="studio-grid">
+        
+        <!-- Left: Input Workbench Card -->
+        <section class="form-card glass-panel" aria-labelledby="input-panel-title">
+          <div class="section-title">
+            <h2 id="input-panel-title" style="font-size:1.1rem;">Raw Product Input</h2>
+            <span class="badge badge-cyan">Input Analyzer</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-mpn">Manufacturer Part Number (MPN)</label>
+            <input type="text" id="input-mpn" class="input-field text-mono" placeholder="e.g. PDSH4816AF">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-desc">Raw Product Description</label>
+            <textarea id="input-desc" class="textarea-field" rows="3" placeholder="e.g. PDSH4816AF Dishwasher SS - Display Only"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-manuf">Raw Supplier / Manufacturer String</label>
+            <input type="text" id="input-manuf" class="input-field" placeholder="e.g. Appliance Dealers Cooperative (APPDE)">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="input-e1-brand">Supplier Brand (Optional)</label>
+            <input type="text" id="input-e1-brand" class="input-field" placeholder="e.g. -- Unbranded --">
+          </div>
+
+          <!-- Quick Samples Loader -->
+          <div class="form-group">
+            <label class="form-label">Pre-Loaded Industrial Samples</label>
+            <div class="quick-samples" id="quick-samples-container">
+              <!-- Dynamically populated sample buttons -->
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="btn-enrich-single" style="width:100%; margin-top:8px;">
+            ⚡ Enrich & Validate
+          </button>
+        </section>
+
+        <!-- Right: Enriched Intelligence Workspace -->
+        <section class="result-card glass-panel" aria-labelledby="result-title">
+          
+          <!-- Identity Banner -->
+          <div class="result-header">
+            <div class="product-identity">
+              <h2 id="result-title" class="text-gradient-cyan">Loading Intelligence...</h2>
+              <div class="meta-tags">
+                <span class="badge badge-purple" id="result-mfr-pill">Manufacturer</span>
+                <span class="badge badge-cyan" id="result-brand-pill">Brand®</span>
+                <span class="badge badge-emerald" id="result-classpath-pill">Classpath</span>
+              </div>
+            </div>
+            <div id="result-confidence-badge" class="confidence-badge badge-emerald">
+              100% Confidence
+            </div>
+          </div>
+
+          <!-- Multi-Tier Content Descriptions -->
+          <div>
+            <h3 style="font-size:0.95rem; margin-bottom:12px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em;">
+              Multi-Tier Content & Construction Formulas
+            </h3>
+            <div class="descriptions-grid">
+              
+              <!-- Invoice Desc Card (<=40 chars) -->
+              <div class="desc-box">
+                <div class="desc-header">
+                  <span class="desc-title">Invoice POS Desc (≤40 Chars, ALL-CAPS)</span>
+                  <span id="invoice-meter" class="char-meter valid">39/40 Chars</span>
+                </div>
+                <p id="invoice-desc-text" class="desc-content text-mono" style="font-weight:600; color:var(--accent-cyan);">
+                  DISHWASHER LEG 5 SST 120V 15A 50-1/4IN
+                </p>
+              </div>
+
+              <!-- Mobile Desc Card (60-80 chars) -->
+              <div class="desc-box">
+                <div class="desc-header">
+                  <span class="desc-title">Mobile Catalog Desc (60–80 Chars)</span>
+                  <span id="mobile-meter" class="char-meter valid">74 Chars</span>
+                </div>
+                <p id="mobile-desc-text" class="desc-content">
+                  Rheem Manufacturing FRIGIDAIRE, Dishwasher, Professional Series, PDSH4816AF
+                </p>
+              </div>
+
+              <!-- Short Desc (Product Title) -->
+              <div class="desc-box" style="grid-column:1 / -1;">
+                <div class="desc-header">
+                  <span class="desc-title">Product Title / Short Description</span>
+                  <span class="badge badge-cyan" style="font-size:0.65rem;">Brand® + Series + MPN + Name + Specs</span>
+                </div>
+                <p id="short-desc-text" class="desc-content" style="font-weight:600;">
+                  FRIGIDAIRE® Professional Series PDSH4816AF Dishwasher With CleanBoost™, Leg Mounting, 5-Wash Cycle, Stainless Steel
+                </p>
+              </div>
+
+              <!-- Long Description -->
+              <div class="desc-box" style="grid-column:1 / -1;">
+                <div class="desc-header">
+                  <span class="desc-title">Long Description (E-Commerce Specifications)</span>
+                </div>
+                <p id="long-desc-text" class="desc-content" style="font-size:0.85rem; color:var(--text-secondary);">
+                  Loading long description...
+                </p>
+              </div>
+
+              <!-- Retail & Marketing -->
+              <div class="desc-box">
+                <div class="desc-header">
+                  <span class="desc-title">Retail Tagline</span>
+                </div>
+                <p id="retail-desc-text" class="desc-content" style="font-size:0.85rem;">
+                  Loading retail description...
+                </p>
+              </div>
+
+              <div class="desc-box">
+                <div class="desc-header">
+                  <span class="desc-title">Marketing Benefits Copy</span>
+                </div>
+                <p id="marketing-desc-text" class="desc-content" style="font-size:0.85rem;">
+                  Loading marketing copy...
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Item Features & Bullets -->
+          <div>
+            <h3 style="font-size:0.95rem; margin-bottom:8px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em;">
+              Structured Feature Bullets (ITEM_FEATURES_1..20)
+            </h3>
+            <ul id="item-features-list" style="padding-left:20px; font-size:0.88rem; display:flex; flex-direction:column; gap:4px; color:var(--text-secondary);">
+              <!-- Feature list items -->
+            </ul>
+          </div>
+
+          <!-- Structured 50-Slot Attribute Grid -->
+          <div class="attributes-container">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="font-size:0.95rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em;">
+                LOV Standardized Attributes (50 Column Trios)
+              </h3>
+              <span class="badge badge-purple">Controlled Vocabulary</span>
+            </div>
+            <div class="attributes-grid" id="attributes-grid">
+              <!-- Dynamically populated attribute cards -->
+            </div>
+          </div>
+
+          <!-- Digital Assets & Documents Preview -->
+          <div class="assets-preview-row">
+            <div class="product-img-box">
+              <span style="font-size:1.8rem;">📦</span>
+              <span style="font-size:0.7rem; font-family:var(--font-mono);" id="product-image-name">IMAGE.jpg</span>
+            </div>
+            <div class="asset-details">
+              <h4 style="font-size:0.95rem;">Digital Asset & Technical Documentation Compliance</h4>
+              <div class="asset-link-item">
+                <span>📄 <strong>Specification Sheet:</strong></span>
+                <span class="text-mono" id="spec-sheet-name" style="color:var(--accent-cyan);">SPECS.pdf</span>
+              </div>
+              <div class="asset-link-item">
+                <span>🌐 <strong>Official OEM Sourcing URL:</strong></span>
+                <a href="#" id="mfr-url-link" target="_blank" style="color:var(--accent-blue); text-decoration:none; max-width:480px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">https://...</a>
+              </div>
+              <div class="asset-link-item">
+                <span>🛡️ <strong>Regulatory & Quality Status:</strong></span>
+                <span class="badge badge-emerald">OEM Sourced Verified</span>
+                <span class="badge badge-cyan">Energy Star & UL Compliant</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+    <!-- TAB 2: Batch Processing Studio (1,000 Items) -->
+    <main class="tab-panel" id="tab-batch">
+      <section class="glass-panel" style="padding:28px; display:flex; flex-direction:column; gap:20px;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div>
+            <h2>High-Throughput Batch Processing Studio</h2>
+            <p style="color:var(--text-muted); font-size:0.88rem;">Process all 1,000 raw catalogue items or upload custom CSV datasets.</p>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn btn-primary" id="btn-run-1000-batch">
+              🚀 Process 1,000 Sample Items
+            </button>
+            <label class="btn btn-secondary" style="cursor:pointer;">
+              📁 Upload Raw CSV
+              <input type="file" id="csv-file-input" accept=".csv" style="display:none;">
+            </label>
+            <button class="btn btn-purple" id="btn-export-csv">
+              📥 Export 252-Col CSV
+            </button>
+            <button class="btn btn-secondary" id="btn-export-excel">
+              📊 Export Excel
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div style="background:rgba(255,255,255,0.05); border-radius:var(--radius-full); height:8px; overflow:hidden;">
+          <div id="batch-progress-bar" style="width:0%; height:100%; background:var(--grad-primary); transition:width 0.4s ease;"></div>
+        </div>
+        <div id="batch-progress-text" style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-mono);">
+          Ready to process dataset.
+        </div>
+
+        <!-- Batch Stats Counters -->
+        <div class="stats-grid" id="batch-stats-container">
+          <div class="stat-card">
+            <span class="stat-label">Total Processed</span>
+            <span class="stat-value text-gradient-cyan">1,000</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Delivery Columns</span>
+            <span class="stat-value text-gradient-cyan">252</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Throughput Speed</span>
+            <span class="stat-value text-gradient-emerald">>1,700/sec</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Average Confidence</span>
+            <span class="stat-value text-gradient-emerald">88.8%</span>
+          </div>
+        </div>
+
+        <!-- Search / Filter Bar -->
+        <div style="display:flex; gap:12px;">
+          <input type="text" id="batch-search-input" class="input-field" placeholder="Search by MPN, Brand, Manufacturer, or Description...">
+        </div>
+
+        <!-- Enriched Data Table -->
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>MPN</th>
+                <th>Manufacturer</th>
+                <th>Brand</th>
+                <th>Classpath Hierarchy</th>
+                <th>Invoice Desc (≤40)</th>
+                <th>Confidence</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="batch-table-body">
+              <tr>
+                <td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">
+                  Click "Process 1,000 Sample Items" above to populate enriched catalog records.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- TAB 3: Ground Truth Benchmark & Diff Comparator -->
+    <main class="tab-panel" id="tab-benchmark">
+      <section class="glass-panel" style="padding:28px; display:flex; flex-direction:column; gap:20px;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h2>Labelled Ground Truth Benchmark & Side-by-Side Diff</h2>
+            <p style="color:var(--text-muted); font-size:0.88rem;">Automated scoring against the client's official 252-column ground truth delivery records.</p>
+          </div>
+          <button class="btn btn-primary" id="btn-run-benchmark">
+            🔄 Re-Evaluate Benchmark
+          </button>
+        </div>
+
+        <!-- Benchmark Scorecards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Overall Accuracy</span>
+            <span class="stat-value text-gradient-emerald" id="bench-overall-acc">100.0%</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Brand Exact Match</span>
+            <span class="stat-value text-gradient-cyan" id="bench-brand-acc">100.0%</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Classpath Accuracy</span>
+            <span class="stat-value text-gradient-cyan" id="bench-classpath-acc">100.0%</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Invoice Desc Compliance</span>
+            <span class="stat-value text-gradient-emerald" id="bench-invoice-comp">100.0%</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Mobile Desc Compliance</span>
+            <span class="stat-value text-gradient-emerald" id="bench-mobile-comp">100.0%</span>
+          </div>
+        </div>
+
+        <!-- Side-by-Side Comparison Table -->
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ground Truth Sample Item</th>
+                <th>Target Field</th>
+                <th>Ground Truth Expected</th>
+                <th>AI Model Prediction</th>
+                <th>Match Status</th>
+              </tr>
+            </thead>
+            <tbody id="diff-table-body">
+              <!-- Dynamically populated diff rows -->
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- TAB 4: Master Vocabularies & Guidelines Explorer -->
+    <main class="tab-panel" id="tab-vocab">
+      <section class="glass-panel" style="padding:28px; display:flex; flex-direction:column; gap:20px;">
+        <div>
+          <h2>Master Data & Controlled Vocabularies</h2>
+          <p style="color:var(--text-muted); font-size:0.88rem;">Reference rules, approved UOMs, decimal-fraction mappings, and legal entity lists.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:20px;">
+          
+          <div class="desc-box">
+            <h4 style="color:var(--accent-cyan);">Master UOM Standards & House Style</h4>
+            <p style="font-size:0.85rem; color:var(--text-secondary);">
+              • Always keep exactly 1 space between number and unit (e.g. <code>24 in</code>, not <code>24in</code>).<br>
+              • Standard abbreviations: <code>in</code>, <code>ft</code>, <code>V</code>, <code>A</code>, <code>W</code>, <code>dBA</code>, <code>K</code>, <code>Grit</code>, <code>TPI</code>.<br>
+              • Never invent non-standard capture forms.
+            </p>
+          </div>
+
+          <div class="desc-box">
+            <h4 style="color:var(--accent-blue);">Decimal-to-Fraction Conversions</h4>
+            <p style="font-size:0.85rem; color:var(--text-secondary);">
+              • Converts standard manufacturer decimals to trade search fractions (64th increments).<br>
+              • Examples: <code>0.5 in → 1/2 in</code>, <code>50.25 in → 50-1/4 in</code>, <code>33.4375 in → 33-7/16 in</code>.
+            </p>
+          </div>
+
+          <div class="desc-box">
+            <h4 style="color:var(--accent-purple);">Legal Entity & Trademark Rules</h4>
+            <p style="font-size:0.85rem; color:var(--text-secondary);">
+              • Resolves messy supplier spellings to canonical corporate manufacturers.<br>
+              • Preserves legal trademark symbols (<code>FRIGIDAIRE®</code>, <code>Whirlpool®</code>, <code>Milwaukee®</code>, <code>DEWALT®</code>, <code>Café™</code>).
+            </p>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- Audit Drawer / Explainability Modal -->
+  <div id="audit-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center; padding:20px;">
+    <div class="glass-panel" style="width:100%; max-width:640px; max-height:85vh; display:flex; flex-direction:column; padding:24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-subtle); padding-bottom:12px;">
+        <h3 style="font-size:1.1rem; color:var(--accent-cyan);">Data Provenance & Audit Trail</h3>
+        <button id="btn-close-audit" class="btn btn-secondary btn-sm">✕ Close</button>
+      </div>
+      <div id="audit-timeline" style="overflow-y:auto; flex:1; padding-right:8px;">
+        <!-- Dynamically rendered timeline -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="/static/js/app.js"></script>
+
+</body>
+</html>
